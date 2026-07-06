@@ -1,0 +1,26 @@
+{
+  "name": "台球学习与训练",
+  "short_name": "台球学习",
+  "description": "适合手机使用的台球课程学习与训练记录工具，支持上课笔记、姿势入位训练和五分点训练。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#06100d",
+  "theme_color": "#0b1512",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
