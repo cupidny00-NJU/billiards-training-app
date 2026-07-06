@@ -1,0 +1,2189 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1512">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-title" content="台球学习">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <title>台球学习与训练</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #06100d;
+      --bg-2: #0c1714;
+      --panel: #101b18;
+      --panel-2: #17231f;
+      --panel-3: #0b1411;
+      --line: rgba(230, 255, 244, .11);
+      --line-strong: rgba(230, 255, 244, .18);
+      --text: #f1f8f4;
+      --muted: #9dafaa;
+      --muted-2: #6f817b;
+      --green: #2dd17f;
+      --green-2: #16a66c;
+      --red: #f16b64;
+      --red-2: #c94b44;
+      --blue: #6eb8ff;
+      --blue-2: #2f78c6;
+      --gray: #73827c;
+      --gray-2: #4c5b55;
+      --yellow: #edbf54;
+      --shadow: 0 18px 50px rgba(0, 0, 0, .34);
+      --radius: 8px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      background:
+        linear-gradient(180deg, rgba(17, 36, 31, .96), rgba(5, 10, 9, 1)),
+        repeating-linear-gradient(135deg, rgba(255, 255, 255, .028) 0 1px, transparent 1px 9px);
+      color: var(--text);
+    }
+
+    body {
+      height: 100dvh;
+      padding: max(8px, env(safe-area-inset-top)) 10px max(8px, env(safe-area-inset-bottom));
+      line-height: 1.35;
+      letter-spacing: 0;
+      user-select: none;
+      overflow: hidden;
+    }
+
+    button,
+    select,
+    input {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      color: var(--text);
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: transform .12s ease, filter .12s ease, opacity .12s ease;
+    }
+
+    button:active:not(:disabled) {
+      transform: translateY(1px) scale(.99);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: .45;
+    }
+
+    .app {
+      width: min(100%, 460px);
+      height: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto auto;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .topbar {
+      display: grid;
+      gap: 7px;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, .12), rgba(255, 255, 255, .02)),
+        #0a1512;
+      border: 1px solid var(--line-strong);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14), 0 10px 24px rgba(0, 0, 0, .28);
+      font-size: 19px;
+    }
+
+    .kicker {
+      margin-bottom: 2px;
+      color: var(--green);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.1;
+      font-weight: 800;
+    }
+
+    .date {
+      color: #dcebe4;
+      font-size: 11px;
+      white-space: nowrap;
+      padding: 6px 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .055);
+    }
+
+    .project-row {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 10px;
+      padding: 8px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .035)),
+        rgba(10, 22, 18, .9);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .22);
+    }
+
+    .project-label {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .module-row {
+      grid-template-columns: 1fr;
+      gap: 7px;
+    }
+
+    .module-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      padding: 3px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: var(--radius);
+      background: rgba(5, 12, 10, .46);
+    }
+
+    .module-tab {
+      min-height: 34px;
+      border-radius: calc(var(--radius) - 2px);
+      color: var(--muted);
+      background: transparent;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .module-tab.active {
+      color: #062017;
+      background: linear-gradient(180deg, #42e394, var(--green-2));
+    }
+
+    .picker-row {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 10px;
+    }
+
+    .select-wrap {
+      position: relative;
+    }
+
+    select {
+      width: 100%;
+      height: 38px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      padding: 0 42px 0 12px;
+      color: var(--text);
+      background: #0d1815;
+      outline: none;
+      appearance: none;
+      font-weight: 750;
+    }
+
+    .select-wrap::after {
+      content: "⌄";
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-56%);
+      color: var(--muted);
+      pointer-events: none;
+      font-size: 18px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .015)),
+        linear-gradient(180deg, var(--panel), var(--panel-2));
+      box-shadow: var(--shadow);
+    }
+
+    .main-card {
+      position: relative;
+      overflow: hidden;
+      padding: 10px;
+      display: grid;
+      grid-template-rows: auto auto minmax(150px, 1fr) auto;
+      gap: 8px;
+      min-height: 0;
+    }
+
+    .main-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--blue), var(--yellow));
+    }
+
+    .progress-head {
+      display: grid;
+      gap: 3px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-name {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .current-progress {
+      font-size: 22px;
+      font-weight: 850;
+      line-height: 1.18;
+    }
+
+    .sub-progress {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .session-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .session-pill {
+      min-width: 0;
+      padding: 7px 6px;
+      border: 1px solid rgba(255, 255, 255, .075);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .038);
+    }
+
+    .session-label {
+      color: var(--muted-2);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .session-value {
+      display: block;
+      margin-top: 2px;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 850;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .timer-box {
+      position: relative;
+      overflow: hidden;
+      min-height: 150px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 255, 255, .105);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .035), transparent),
+        rgba(5, 12, 10, .62);
+    }
+
+    .timer-box::after {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border: 1px solid rgba(255, 255, 255, .045);
+      border-radius: calc(var(--radius) - 1px);
+      pointer-events: none;
+    }
+
+    .timer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .timer-number {
+      font-variant-numeric: tabular-nums;
+      font-size: clamp(72px, 22vw, 88px);
+      line-height: .9;
+      font-weight: 900;
+    }
+
+    .timer-box.text-mode .timer-number {
+      font-size: 34px;
+      line-height: 1.05;
+    }
+
+    .timer-label {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .timer-box.running .timer-number {
+      color: var(--green);
+    }
+
+    .timer-box.done .timer-number {
+      color: var(--yellow);
+    }
+
+    .bar-wrap {
+      display: grid;
+      gap: 6px;
+    }
+
+    .bar-meta {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .bar {
+      height: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .075);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, .28);
+    }
+
+    .bar-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--green), var(--blue), var(--yellow));
+      transition: width .22s ease;
+    }
+
+    .actions {
+      display: grid;
+      gap: 7px;
+    }
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .btn {
+      min-height: 46px;
+      border-radius: var(--radius);
+      padding: 9px 8px;
+      font-weight: 800;
+      font-size: 16px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .13), inset 0 -2px 0 rgba(0, 0, 0, .2), 0 10px 22px rgba(0, 0, 0, .16);
+    }
+
+    .btn-primary {
+      min-height: 52px;
+      background: linear-gradient(180deg, #42e394, var(--green-2));
+      color: #062017;
+      font-size: 18px;
+    }
+
+    .btn-success {
+      background: linear-gradient(180deg, #31d68b, #1fa86b);
+      color: #061e15;
+    }
+
+    .btn-fail {
+      background: linear-gradient(180deg, var(--red), var(--red-2));
+      color: #fff;
+    }
+
+    .btn-muted {
+      background: linear-gradient(180deg, #7b8984, var(--gray-2));
+      color: #f3fbf7;
+      font-size: 12px;
+      min-height: 38px;
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+
+    .stats-card {
+      padding: 8px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .stats-card .section-title {
+      display: none;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+
+    .stat {
+      min-height: 56px;
+      padding: 7px 6px;
+      border: 1px solid rgba(255, 255, 255, .075);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .025));
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 10px;
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .stat-value {
+      font-size: 22px;
+      font-weight: 850;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-value.good {
+      color: var(--green);
+    }
+
+    .stat-value.bad {
+      color: var(--red);
+    }
+
+    .settings-card {
+      padding: 0;
+      display: grid;
+      gap: 10px;
+      box-shadow: none;
+      border: 0;
+      background: transparent;
+    }
+
+    .settings-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .number-stepper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .small-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .1);
+      color: var(--text);
+      font-size: 21px;
+      font-weight: 800;
+      border: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .round-value {
+      min-width: 38px;
+      text-align: center;
+      color: var(--text);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .switch-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .switch {
+      position: relative;
+      width: 54px;
+      height: 32px;
+      flex: 0 0 auto;
+    }
+
+    .switch input {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .14);
+      transition: .18s ease;
+    }
+
+    .slider::before {
+      content: "";
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      left: 3px;
+      top: 3px;
+      border-radius: 50%;
+      background: #fff;
+      transition: .18s ease;
+    }
+
+    .switch input:checked + .slider {
+      background: var(--green-2);
+    }
+
+    .switch input:checked + .slider::before {
+      transform: translateX(22px);
+    }
+
+    .history-card {
+      padding: 0;
+      display: grid;
+      gap: 10px;
+      box-shadow: none;
+      border: 0;
+      background: transparent;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .section-title::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(90deg, rgba(255, 255, 255, .16), transparent);
+    }
+
+    .history-list {
+      display: grid;
+      gap: 8px;
+      max-height: 34dvh;
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    .history-item {
+      display: grid;
+      gap: 3px;
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, .075);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .04);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .history-item strong {
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .empty {
+      color: var(--muted);
+      font-size: 13px;
+      padding: 4px 0;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: none;
+      place-items: end center;
+      padding: 16px 14px max(16px, env(safe-area-inset-bottom));
+      background: rgba(0, 0, 0, .58);
+    }
+
+    .modal-backdrop.show {
+      display: grid;
+    }
+
+    .modal {
+      width: min(100%, 430px);
+      max-height: min(88dvh, 680px);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #101a17;
+      box-shadow: var(--shadow);
+      padding: 16px;
+      display: grid;
+      gap: 13px;
+      overflow: hidden;
+    }
+
+    .modal-scroll {
+      min-height: 0;
+      overflow: auto;
+      display: grid;
+      gap: 12px;
+    }
+
+    .modal h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .summary-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .summary-item {
+      padding: 10px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .045);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .summary-item b {
+      display: block;
+      margin-top: 4px;
+      color: var(--text);
+      font-size: 20px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .advice {
+      padding: 11px;
+      border-left: 3px solid var(--green);
+      border-radius: var(--radius);
+      color: #d8e9e1;
+      background: rgba(36, 194, 122, .1);
+      font-size: 14px;
+    }
+
+    .danger-zone {
+      display: grid;
+      gap: 8px;
+      padding-top: 2px;
+    }
+
+    .btn-outline {
+      min-height: 46px;
+      border: 1px solid rgba(239, 93, 93, .38);
+      background: rgba(239, 93, 93, .08);
+      color: #ffb2b2;
+      border-radius: var(--radius);
+      font-weight: 800;
+    }
+
+    .modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .modal-actions.three {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .history-summary {
+      display: grid;
+      gap: 8px;
+      max-height: 26dvh;
+      overflow: auto;
+    }
+
+    .note-context {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .text-field {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      padding: 0 11px;
+      color: var(--text);
+      background: rgba(5, 12, 10, .66);
+      outline: none;
+      user-select: text;
+    }
+
+    .note-input {
+      width: 100%;
+      min-height: 118px;
+      resize: vertical;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      padding: 11px;
+      color: var(--text);
+      background: rgba(5, 12, 10, .66);
+      outline: none;
+      line-height: 1.45;
+      user-select: text;
+    }
+
+    .image-upload {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .file-button {
+      min-height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius);
+      padding: 8px 10px;
+      color: #062017;
+      background: linear-gradient(180deg, #42e394, var(--green-2));
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .file-input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .image-hint {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .image-preview,
+    .history-images {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+    }
+
+    .note-image-thumb {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1;
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .05);
+    }
+
+    .note-image-thumb img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .remove-image {
+      position: absolute;
+      right: 4px;
+      top: 4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, .68);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .quick-notes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .note-chip {
+      min-height: 38px;
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: var(--radius);
+      padding: 8px;
+      color: #dcebe4;
+      background: rgba(255, 255, 255, .07);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 360px) {
+      body {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .brand {
+        gap: 8px;
+      }
+
+      .brand-mark {
+        width: 38px;
+        height: 38px;
+        font-size: 20px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      .date {
+        font-size: 11px;
+        padding: 7px 8px;
+      }
+
+      .current-progress {
+        font-size: 23px;
+      }
+
+      .session-strip {
+        gap: 6px;
+      }
+
+      .session-pill {
+        padding: 8px 6px;
+      }
+
+      .session-label {
+        font-size: 10px;
+      }
+
+      .session-value {
+        font-size: 12px;
+      }
+
+      .timer-number {
+        font-size: 64px;
+      }
+
+      .timer-box.text-mode .timer-number {
+        font-size: 32px;
+      }
+
+      .btn {
+        font-size: 15px;
+      }
+
+      .tool-grid {
+        gap: 8px;
+      }
+
+      .btn-muted {
+        font-size: 13px;
+        padding-left: 6px;
+        padding-right: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="title-row">
+        <div class="brand">
+          <div class="brand-mark">🎱</div>
+          <div>
+            <div class="kicker">课程 + 训练</div>
+            <h1>台球学习与训练</h1>
+          </div>
+        </div>
+        <div class="date" id="todayText"></div>
+      </div>
+
+      <section class="project-row module-row" aria-label="模块与项目选择">
+        <div class="module-tabs" aria-label="功能模块">
+          <button class="module-tab active" id="trainingModuleBtn">训练记录</button>
+          <button class="module-tab" id="courseModuleBtn">课程学习</button>
+        </div>
+        <div class="picker-row" id="trainingPicker">
+          <div class="project-label">当前训练项目</div>
+          <div class="select-wrap">
+            <select id="trainingSelect"></select>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <section class="card main-card">
+      <div class="progress-head">
+        <div class="project-name" id="projectName"></div>
+        <div class="current-progress" id="currentProgress"></div>
+        <div class="sub-progress" id="subProgress"></div>
+      </div>
+
+      <div class="session-strip" aria-label="当前训练状态">
+        <div class="session-pill">
+          <span class="session-label">状态</span>
+          <b class="session-value" id="statusText"></b>
+        </div>
+        <div class="session-pill">
+          <span class="session-label">目标</span>
+          <b class="session-value" id="targetText"></b>
+        </div>
+        <div class="session-pill">
+          <span class="session-label">剩余</span>
+          <b class="session-value" id="remainingText"></b>
+        </div>
+      </div>
+
+      <div class="timer-box" id="timerBox">
+        <div class="timer">
+          <div class="timer-number" id="timerNumber"></div>
+          <div class="timer-label" id="timerLabel"></div>
+        </div>
+      </div>
+
+      <div class="bar-wrap">
+        <div class="bar-meta">
+          <span>总进度</span>
+          <span id="progressText"></span>
+        </div>
+        <div class="bar" aria-hidden="true">
+          <div class="bar-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="actions" id="trainingActions" aria-label="训练操作">
+      <button class="btn btn-primary" id="startBtn">开始本次</button>
+      <div class="action-grid">
+        <button class="btn btn-success" id="successBtn"></button>
+        <button class="btn btn-fail" id="failBtn"></button>
+      </div>
+      <div class="tool-grid">
+        <button class="btn btn-muted" id="skipBtn">跳过</button>
+        <button class="btn btn-muted" id="undoBtn">撤销</button>
+        <button class="btn btn-muted" id="noteBtn">课程</button>
+        <button class="btn btn-muted" id="settingsBtn">设置</button>
+        <button class="btn btn-muted" id="historyBtn">历史</button>
+        <button class="btn btn-muted" id="resetBtn">重置</button>
+      </div>
+    </section>
+
+    <section class="actions hidden" id="courseActions" aria-label="课程学习操作">
+      <button class="btn btn-primary" id="newLessonBtn">新建上课笔记</button>
+      <div class="action-grid">
+        <button class="btn btn-success" id="reviewLessonsBtn">查看课程</button>
+        <button class="btn btn-success" id="coursePracticeBtn">记录课后练习</button>
+      </div>
+      <div class="tool-grid">
+        <button class="btn btn-muted" id="methodNoteBtn">方法</button>
+        <button class="btn btn-muted" id="homeworkNoteBtn">作业</button>
+        <button class="btn btn-muted" id="courseHistoryBtn">历史</button>
+        <button class="btn btn-muted" id="courseTrainingBtn">训练</button>
+        <button class="btn btn-muted" id="courseSettingsBtn">设置</button>
+        <button class="btn btn-muted" id="courseExportBtn">导出</button>
+      </div>
+    </section>
+
+    <section class="card stats-card" aria-label="今日数据统计">
+      <div class="section-title">今日数据</div>
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-label">完成</div>
+          <div class="stat-value" id="statCompleted"></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label" id="statRateLabel"></div>
+          <div class="stat-value good" id="statRate"></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label" id="statSuccessLabel"></div>
+          <div class="stat-value good" id="statSuccess"></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label" id="statFailLabel"></div>
+          <div class="stat-value bad" id="statFail"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="summaryModal" role="dialog" aria-modal="true" aria-labelledby="summaryTitle">
+    <section class="modal">
+      <h2 id="summaryTitle">训练完成</h2>
+      <div class="summary-list" id="summaryList"></div>
+      <div class="advice" id="summaryAdvice"></div>
+      <button class="btn btn-primary" id="closeSummaryBtn">完成</button>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <section class="modal">
+      <h2 id="settingsTitle">训练设置</h2>
+      <div class="modal-scroll">
+        <section class="settings-card" id="fivePointSettings">
+          <div class="section-title">五分点训练</div>
+          <div class="settings-row">
+            <span>总轮数</span>
+            <div class="number-stepper">
+              <button class="small-btn" id="roundMinus" aria-label="减少轮数">−</button>
+              <span class="round-value" id="roundValue">5</span>
+              <button class="small-btn" id="roundPlus" aria-label="增加轮数">+</button>
+            </div>
+          </div>
+          <div class="switch-line">
+            <span>启用 45 秒可选计时</span>
+            <label class="switch">
+              <input type="checkbox" id="fivePointTimerToggle">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </section>
+        <div class="advice" id="settingsInfo"></div>
+        <div class="switch-line">
+          <span>计时期间尽量保持屏幕常亮</span>
+          <label class="switch">
+            <input type="checkbox" id="wakeLockToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="closeSettingsBtn">完成</button>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="noteModal" role="dialog" aria-modal="true" aria-labelledby="noteTitle">
+    <section class="modal">
+      <h2 id="noteTitle">上课笔记</h2>
+      <div class="modal-scroll">
+        <div class="note-context" id="noteContext"></div>
+        <input class="text-field" id="lessonTitleInput" type="text" placeholder="课程主题，如：入位、瞄准、出杆节奏">
+        <input class="text-field" id="lessonTeacherInput" type="text" placeholder="老师 / 来源（可选）">
+        <textarea class="note-input" id="noteText" placeholder="记录老师讲的方法、关键动作、错误纠正、课后作业、需要训练验证的点..."></textarea>
+        <div class="image-upload">
+          <label class="file-button" for="noteImageInput">上传笔记图片</label>
+          <span class="image-hint">最多 4 张，自动压缩保存</span>
+          <input class="file-input" id="noteImageInput" type="file" accept="image/*" multiple>
+        </div>
+        <div class="image-preview" id="noteImagePreview"></div>
+        <div class="quick-notes" aria-label="快速笔记">
+          <button class="note-chip" data-note="方法要点：">方法要点</button>
+          <button class="note-chip" data-note="常见错误：">常见错误</button>
+          <button class="note-chip" data-note="老师纠正：">老师纠正</button>
+          <button class="note-chip" data-note="课后作业：">课后作业</button>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-muted" id="closeNoteBtn">取消</button>
+        <button class="btn btn-primary" id="saveNoteBtn">保存笔记</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="historyModal" role="dialog" aria-modal="true" aria-labelledby="historyTitle">
+    <section class="modal">
+      <h2 id="historyTitle">学习与训练记录</h2>
+      <div class="modal-scroll">
+        <section class="history-card">
+          <div class="section-title">课程笔记</div>
+          <div class="history-list" id="noteHistory"></div>
+        </section>
+        <section class="history-card">
+          <div class="section-title">训练总结</div>
+          <div class="history-summary" id="historySummary"></div>
+        </section>
+        <section class="history-card">
+          <div class="section-title">今日明细</div>
+          <div class="history-list" id="todayHistory"></div>
+        </section>
+      </div>
+      <div class="modal-actions three">
+        <button class="btn-outline" id="clearAllBtn">清空数据</button>
+        <button class="btn btn-muted" id="exportBtn">导出</button>
+        <button class="btn btn-primary" id="closeHistoryBtn">关闭</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const trainingConfigs = {
+      posture: {
+        name: "姿势入位训练",
+        unitA: "组",
+        unitB: "次",
+        totalGroups: 7,
+        repsPerGroup: 7,
+        timerSeconds: 30,
+        successLabel: "稳定",
+        failLabel: "不稳",
+        rateLabel: "稳定率",
+        successStatLabel: "稳定次数",
+        failStatLabel: "不稳次数",
+        completeText: "完成状态",
+        waitingText: "准备开始",
+        doneText: "计时结束",
+        advice(rate) {
+          if (rate < 60) return "先减少训练量，优先保证入位质量";
+          if (rate <= 80) return "继续保持，重点观察后半段是否变形";
+          return "可以逐步加入出杆或直线球训练";
+        }
+      },
+      fivePoint: {
+        name: "五分点训练",
+        unitA: "轮",
+        unitB: "点",
+        totalGroups: 5,
+        repsPerGroup: 5,
+        timerSeconds: 0,
+        optionalTimerSeconds: 45,
+        successLabel: "进球/完成",
+        failLabel: "失误",
+        rateLabel: "成功率",
+        successStatLabel: "成功次数",
+        failStatLabel: "失误次数",
+        completeText: "待记录",
+        waitingText: "待记录",
+        doneText: "计时结束",
+        advice(rate) {
+          if (rate < 50) return "先降低难度，固定动作节奏";
+          if (rate <= 75) return "继续练习点位稳定性";
+          return "可以增加连续完成目标或加入走位要求";
+        }
+      }
+    };
+
+    const storageKey = "billiardsTrainingApp.v1";
+    const todayKey = getDateKey(new Date());
+    let timerId = null;
+    let wakeLock = null;
+    let pendingNoteImages = [];
+    let state = loadState();
+
+    const els = {
+      todayText: document.getElementById("todayText"),
+      trainingModuleBtn: document.getElementById("trainingModuleBtn"),
+      courseModuleBtn: document.getElementById("courseModuleBtn"),
+      trainingPicker: document.getElementById("trainingPicker"),
+      trainingSelect: document.getElementById("trainingSelect"),
+      projectName: document.getElementById("projectName"),
+      currentProgress: document.getElementById("currentProgress"),
+      subProgress: document.getElementById("subProgress"),
+      statusText: document.getElementById("statusText"),
+      targetText: document.getElementById("targetText"),
+      remainingText: document.getElementById("remainingText"),
+      timerBox: document.getElementById("timerBox"),
+      timerNumber: document.getElementById("timerNumber"),
+      timerLabel: document.getElementById("timerLabel"),
+      progressText: document.getElementById("progressText"),
+      progressFill: document.getElementById("progressFill"),
+      trainingActions: document.getElementById("trainingActions"),
+      courseActions: document.getElementById("courseActions"),
+      startBtn: document.getElementById("startBtn"),
+      successBtn: document.getElementById("successBtn"),
+      failBtn: document.getElementById("failBtn"),
+      skipBtn: document.getElementById("skipBtn"),
+      undoBtn: document.getElementById("undoBtn"),
+      noteBtn: document.getElementById("noteBtn"),
+      settingsBtn: document.getElementById("settingsBtn"),
+      historyBtn: document.getElementById("historyBtn"),
+      resetBtn: document.getElementById("resetBtn"),
+      statCompleted: document.getElementById("statCompleted"),
+      statRateLabel: document.getElementById("statRateLabel"),
+      statRate: document.getElementById("statRate"),
+      statSuccessLabel: document.getElementById("statSuccessLabel"),
+      statSuccess: document.getElementById("statSuccess"),
+      statFailLabel: document.getElementById("statFailLabel"),
+      statFail: document.getElementById("statFail"),
+      todayHistory: document.getElementById("todayHistory"),
+      historySummary: document.getElementById("historySummary"),
+      noteHistory: document.getElementById("noteHistory"),
+      fivePointSettings: document.getElementById("fivePointSettings"),
+      settingsInfo: document.getElementById("settingsInfo"),
+      wakeLockToggle: document.getElementById("wakeLockToggle"),
+      roundMinus: document.getElementById("roundMinus"),
+      roundPlus: document.getElementById("roundPlus"),
+      roundValue: document.getElementById("roundValue"),
+      fivePointTimerToggle: document.getElementById("fivePointTimerToggle"),
+      clearAllBtn: document.getElementById("clearAllBtn"),
+      summaryModal: document.getElementById("summaryModal"),
+      settingsModal: document.getElementById("settingsModal"),
+      noteModal: document.getElementById("noteModal"),
+      historyModal: document.getElementById("historyModal"),
+      noteContext: document.getElementById("noteContext"),
+      noteText: document.getElementById("noteText"),
+      noteImageInput: document.getElementById("noteImageInput"),
+      noteImagePreview: document.getElementById("noteImagePreview"),
+      summaryTitle: document.getElementById("summaryTitle"),
+      summaryList: document.getElementById("summaryList"),
+      summaryAdvice: document.getElementById("summaryAdvice"),
+      closeSummaryBtn: document.getElementById("closeSummaryBtn"),
+      closeSettingsBtn: document.getElementById("closeSettingsBtn"),
+      closeNoteBtn: document.getElementById("closeNoteBtn"),
+      saveNoteBtn: document.getElementById("saveNoteBtn"),
+      exportBtn: document.getElementById("exportBtn"),
+      closeHistoryBtn: document.getElementById("closeHistoryBtn"),
+      newLessonBtn: document.getElementById("newLessonBtn"),
+      reviewLessonsBtn: document.getElementById("reviewLessonsBtn"),
+      coursePracticeBtn: document.getElementById("coursePracticeBtn"),
+      methodNoteBtn: document.getElementById("methodNoteBtn"),
+      homeworkNoteBtn: document.getElementById("homeworkNoteBtn"),
+      courseHistoryBtn: document.getElementById("courseHistoryBtn"),
+      courseTrainingBtn: document.getElementById("courseTrainingBtn"),
+      courseSettingsBtn: document.getElementById("courseSettingsBtn"),
+      courseExportBtn: document.getElementById("courseExportBtn"),
+      lessonTitleInput: document.getElementById("lessonTitleInput"),
+      lessonTeacherInput: document.getElementById("lessonTeacherInput")
+    };
+
+    init();
+
+    function init() {
+      els.todayText.textContent = formatDate(new Date());
+      Object.entries(trainingConfigs).forEach(([key, config]) => {
+        const option = document.createElement("option");
+        option.value = key;
+        option.textContent = config.name;
+        els.trainingSelect.appendChild(option);
+      });
+
+      els.trainingModuleBtn.addEventListener("click", () => switchModule("training"));
+      els.courseModuleBtn.addEventListener("click", () => switchModule("course"));
+      els.trainingSelect.addEventListener("change", () => {
+        stopTimer();
+        state.currentProject = els.trainingSelect.value;
+        ensureProject(state.currentProject);
+        saveState();
+        render();
+      });
+
+      els.startBtn.addEventListener("click", startCurrentAttempt);
+      els.successBtn.addEventListener("click", () => recordResult("success"));
+      els.failBtn.addEventListener("click", () => recordResult("fail"));
+      els.skipBtn.addEventListener("click", () => recordResult("skip"));
+      els.undoBtn.addEventListener("click", undoLast);
+      els.noteBtn.addEventListener("click", () => switchModule("course"));
+      els.settingsBtn.addEventListener("click", openSettings);
+      els.historyBtn.addEventListener("click", openHistory);
+      els.resetBtn.addEventListener("click", resetCurrentProject);
+      els.newLessonBtn.addEventListener("click", openNote);
+      els.reviewLessonsBtn.addEventListener("click", openHistory);
+      els.coursePracticeBtn.addEventListener("click", () => openNote("课后练习"));
+      els.methodNoteBtn.addEventListener("click", () => openNote("方法要点"));
+      els.homeworkNoteBtn.addEventListener("click", () => openNote("课后作业"));
+      els.courseHistoryBtn.addEventListener("click", openHistory);
+      els.courseTrainingBtn.addEventListener("click", () => switchModule("training"));
+      els.courseSettingsBtn.addEventListener("click", openSettings);
+      els.courseExportBtn.addEventListener("click", exportData);
+      els.clearAllBtn.addEventListener("click", clearAllData);
+      els.closeSummaryBtn.addEventListener("click", () => els.summaryModal.classList.remove("show"));
+      els.closeSettingsBtn.addEventListener("click", () => els.settingsModal.classList.remove("show"));
+      els.closeNoteBtn.addEventListener("click", () => els.noteModal.classList.remove("show"));
+      els.saveNoteBtn.addEventListener("click", saveNote);
+      els.noteImageInput.addEventListener("change", handleNoteImages);
+      els.exportBtn.addEventListener("click", exportData);
+      els.closeHistoryBtn.addEventListener("click", () => els.historyModal.classList.remove("show"));
+      document.querySelectorAll(".note-chip").forEach((button) => {
+        button.addEventListener("click", () => appendNoteText(button.dataset.note || button.textContent));
+      });
+      els.roundMinus.addEventListener("click", () => changeFivePointRounds(-1));
+      els.roundPlus.addEventListener("click", () => changeFivePointRounds(1));
+      els.fivePointTimerToggle.addEventListener("change", () => {
+        const project = state.projects.fivePoint;
+        project.timerEnabled = els.fivePointTimerToggle.checked;
+        project.remainingSeconds = getTimerSeconds("fivePoint");
+        project.status = "idle";
+        stopTimer();
+        saveState();
+        render();
+      });
+      els.wakeLockToggle.addEventListener("change", () => {
+        state.preferences.keepAwake = els.wakeLockToggle.checked;
+        saveState();
+        if (!state.preferences.keepAwake) releaseWakeLock();
+      });
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible" && getProject().status === "running") {
+          requestWakeLock();
+        }
+      });
+
+      render();
+    }
+
+    function createInitialState() {
+      const projects = {};
+      Object.keys(trainingConfigs).forEach((key) => {
+        projects[key] = createProjectState(key);
+      });
+
+      return {
+        currentModule: "training",
+        currentProject: "posture",
+        projects,
+        todayRecords: {},
+        history: [],
+        courseNotes: [],
+        preferences: {
+          keepAwake: true
+        }
+      };
+    }
+
+    function createProjectState(key) {
+      const config = trainingConfigs[key];
+      return {
+        currentGroup: 1,
+        currentRep: 1,
+        success: 0,
+        fail: 0,
+        completed: 0,
+        skipped: 0,
+        status: "idle",
+        remainingSeconds: config.timerSeconds || 0,
+        totalGroups: config.totalGroups,
+        timerEnabled: key === "posture",
+        undoStack: [],
+        finished: false
+      };
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(storageKey);
+        if (!raw) return createInitialState();
+        const parsed = JSON.parse(raw);
+        return normalizeState(parsed);
+      } catch (error) {
+        return createInitialState();
+      }
+    }
+
+    function normalizeState(saved) {
+      const base = createInitialState();
+      const merged = {
+        ...base,
+        ...saved,
+        projects: { ...base.projects, ...(saved.projects || {}) },
+        todayRecords: saved.todayRecords || {},
+        history: Array.isArray(saved.history) ? saved.history : [],
+        courseNotes: Array.isArray(saved.courseNotes) ? saved.courseNotes : Array.isArray(saved.notes) ? saved.notes : [],
+        preferences: { ...base.preferences, ...(saved.preferences || {}) }
+      };
+
+      Object.keys(trainingConfigs).forEach((key) => {
+        const config = trainingConfigs[key];
+        merged.projects[key] = {
+          ...createProjectState(key),
+          ...(saved.projects && saved.projects[key] ? saved.projects[key] : {})
+        };
+        if (!Number.isFinite(merged.projects[key].totalGroups)) {
+          merged.projects[key].totalGroups = config.totalGroups;
+        }
+        if (!Array.isArray(merged.projects[key].undoStack)) {
+          merged.projects[key].undoStack = [];
+        }
+        if (key === "posture" && merged.projects[key].status === "idle" && merged.projects[key].remainingSeconds !== config.timerSeconds) {
+          merged.projects[key].remainingSeconds = config.timerSeconds;
+        }
+      });
+
+      if (!trainingConfigs[merged.currentProject]) {
+        merged.currentProject = "posture";
+      }
+      if (!["training", "course"].includes(merged.currentModule)) {
+        merged.currentModule = "training";
+      }
+
+      return merged;
+    }
+
+    function saveState() {
+      localStorage.setItem(storageKey, JSON.stringify(state));
+    }
+
+    function ensureProject(key) {
+      if (!state.projects[key]) {
+        state.projects[key] = createProjectState(key);
+      }
+    }
+
+    function getConfig() {
+      return trainingConfigs[state.currentProject];
+    }
+
+    function getProject() {
+      ensureProject(state.currentProject);
+      return state.projects[state.currentProject];
+    }
+
+    function getTotal(project = getProject(), key = state.currentProject) {
+      const config = trainingConfigs[key];
+      return project.totalGroups * config.repsPerGroup;
+    }
+
+    function getTimerSeconds(key = state.currentProject) {
+      const config = trainingConfigs[key];
+      const project = state.projects[key];
+      if (key === "fivePoint" && project.timerEnabled) return config.optionalTimerSeconds;
+      return config.timerSeconds;
+    }
+
+    function startCurrentAttempt() {
+      const project = getProject();
+      if (project.finished) return;
+
+      const seconds = getTimerSeconds();
+      if (seconds <= 0) {
+        project.status = "ready";
+        project.remainingSeconds = 0;
+        saveState();
+        render();
+        return;
+      }
+
+      stopTimer();
+      project.remainingSeconds = seconds;
+      project.status = "running";
+      saveState();
+      render();
+      requestWakeLock();
+
+      timerId = window.setInterval(() => {
+        const current = getProject();
+        current.remainingSeconds = Math.max(0, current.remainingSeconds - 1);
+        if (current.remainingSeconds <= 0) {
+          current.status = "done";
+          stopTimer();
+          vibrate();
+        }
+        saveState();
+        render();
+      }, 1000);
+    }
+
+    function recordResult(type) {
+      const project = getProject();
+      if (project.finished) return;
+
+      const before = snapshotProject(project);
+      stopTimer();
+
+      if (type === "success") project.success += 1;
+      if (type === "fail") project.fail += 1;
+      if (type === "skip") project.skipped += 1;
+
+      project.completed += 1;
+      project.undoStack.push({
+        before,
+        recordId: createRecordId(),
+        type,
+        at: new Date().toISOString()
+      });
+
+      addRecord(type, project);
+      advancePosition(project);
+
+      if (project.completed >= getTotal(project)) {
+        project.finished = true;
+        project.status = "complete";
+        project.remainingSeconds = 0;
+        saveHistorySummary();
+        saveState();
+        render();
+        showSummary();
+        return;
+      }
+
+      project.status = "idle";
+      project.remainingSeconds = getTimerSeconds();
+      saveState();
+      render();
+    }
+
+    function snapshotProject(project) {
+      return {
+        currentGroup: project.currentGroup,
+        currentRep: project.currentRep,
+        success: project.success,
+        fail: project.fail,
+        completed: project.completed,
+        skipped: project.skipped,
+        status: project.status,
+        remainingSeconds: project.remainingSeconds,
+        finished: project.finished,
+        totalGroups: project.totalGroups,
+        timerEnabled: project.timerEnabled
+      };
+    }
+
+    function restoreSnapshot(project, snapshot) {
+      Object.assign(project, snapshot);
+    }
+
+    function addRecord(type, project) {
+      if (!state.todayRecords[todayKey]) state.todayRecords[todayKey] = [];
+      const config = getConfig();
+      const stackTop = project.undoStack[project.undoStack.length - 1];
+      state.todayRecords[todayKey].push({
+        id: stackTop.recordId,
+        projectKey: state.currentProject,
+        projectName: config.name,
+        type,
+        label: getRecordLabel(type, config),
+        group: project.currentGroup,
+        rep: project.currentRep,
+        time: new Date().toISOString()
+      });
+    }
+
+    function getRecordLabel(type, config) {
+      if (type === "success") return config.successLabel;
+      if (type === "fail") return config.failLabel;
+      return "跳过/取消";
+    }
+
+    function advancePosition(project) {
+      const config = getConfig();
+      project.currentRep += 1;
+      if (project.currentRep > config.repsPerGroup) {
+        project.currentRep = 1;
+        project.currentGroup += 1;
+      }
+    }
+
+    function undoLast() {
+      const project = getProject();
+      const item = project.undoStack.pop();
+      if (!item) return;
+
+      stopTimer();
+      removeRecord(item.recordId);
+      restoreSnapshot(project, item.before);
+      saveState();
+      render();
+    }
+
+    function removeRecord(recordId) {
+      const records = state.todayRecords[todayKey] || [];
+      const index = records.findIndex((record) => record.id === recordId);
+      if (index >= 0) records.splice(index, 1);
+    }
+
+    function resetCurrentProject() {
+      const config = getConfig();
+      if (!confirm(`确定重置「${config.name}」当前进度吗？今日历史记录会保留。`)) return;
+      stopTimer();
+      state.projects[state.currentProject] = createProjectState(state.currentProject);
+      saveState();
+      render();
+    }
+
+    function clearAllData() {
+      if (!confirm("确定清空全部课程与训练数据吗？此操作不可恢复。")) return;
+      stopTimer();
+      localStorage.removeItem(storageKey);
+      state = createInitialState();
+      saveState();
+      render();
+    }
+
+    function changeFivePointRounds(delta) {
+      const project = state.projects.fivePoint;
+      if (project.completed > 0 && !confirm("修改总轮数会重置五分点训练当前进度，是否继续？")) return;
+      const next = clamp(project.totalGroups + delta, 1, 20);
+      state.projects.fivePoint = createProjectState("fivePoint");
+      state.projects.fivePoint.totalGroups = next;
+      state.projects.fivePoint.timerEnabled = project.timerEnabled;
+      state.projects.fivePoint.remainingSeconds = getTimerSeconds("fivePoint");
+      saveState();
+      render();
+    }
+
+    function saveHistorySummary() {
+      const project = getProject();
+      const config = getConfig();
+      const rate = calcRate(project);
+      state.history.unshift({
+        id: createRecordId(),
+        date: todayKey,
+        finishedAt: new Date().toISOString(),
+        projectKey: state.currentProject,
+        projectName: config.name,
+        total: project.completed,
+        success: project.success,
+        fail: project.fail,
+        skipped: project.skipped,
+        rate
+      });
+      state.history = state.history.slice(0, 30);
+    }
+
+    function showSummary() {
+      const project = getProject();
+      const config = getConfig();
+      const rate = calcRate(project);
+      els.summaryTitle.textContent = `${config.name}完成`;
+      els.summaryList.innerHTML = [
+        ["总次数", project.completed],
+        [config.successStatLabel, project.success],
+        [config.failStatLabel, project.fail],
+        [config.rateLabel, `${rate}%`]
+      ].map(([label, value]) => (
+        `<div class="summary-item">${label}<b>${value}</b></div>`
+      )).join("");
+      els.summaryAdvice.textContent = `建议：${config.advice(rate)}`;
+      els.summaryModal.classList.add("show");
+    }
+
+    function switchModule(module) {
+      if (module === state.currentModule) return;
+      stopTimer();
+      state.currentModule = module;
+      saveState();
+      render();
+    }
+
+    function render() {
+      renderModuleControls();
+      if (state.currentModule === "course") {
+        renderCourseModule();
+      } else {
+        renderTrainingModule();
+      }
+      renderSettings();
+      renderTodayHistory();
+      renderHistorySummary();
+      renderNoteHistory();
+    }
+
+    function renderModuleControls() {
+      const isCourse = state.currentModule === "course";
+      els.trainingModuleBtn.classList.toggle("active", !isCourse);
+      els.courseModuleBtn.classList.toggle("active", isCourse);
+      els.trainingPicker.classList.toggle("hidden", isCourse);
+      els.trainingActions.classList.toggle("hidden", isCourse);
+      els.courseActions.classList.toggle("hidden", !isCourse);
+    }
+
+    function renderTrainingModule() {
+      const config = getConfig();
+      const project = getProject();
+      const total = getTotal(project);
+      const completed = Math.min(project.completed, total);
+      const percent = total ? (completed / total) * 100 : 0;
+      const rate = calcRate(project);
+
+      els.trainingSelect.value = state.currentProject;
+      els.projectName.textContent = config.name;
+      els.currentProgress.textContent = `第 ${Math.min(project.currentGroup, project.totalGroups)} ${config.unitA} / ${project.totalGroups} ｜ 第 ${Math.min(project.currentRep, config.repsPerGroup)} ${config.unitB} / ${config.repsPerGroup}`;
+      els.subProgress.textContent = `总完成 ${completed} / ${total}`;
+      els.statusText.textContent = getStatusText(project);
+      els.targetText.textContent = `${project.totalGroups}${config.unitA} × ${config.repsPerGroup}${config.unitB}`;
+      els.remainingText.textContent = `${Math.max(0, total - completed)}${config.unitB}`;
+      els.progressText.textContent = `${completed}/${total}`;
+      els.progressFill.style.width = `${Math.min(100, percent)}%`;
+
+      renderTimer(project, config);
+      renderButtons(project, config);
+      renderStats(project, config, completed, total, rate);
+    }
+
+    function renderCourseModule() {
+      const notes = Array.isArray(state.courseNotes) ? state.courseNotes : [];
+      const todayNotes = notes.filter((note) => note.date === todayKey);
+      const latest = notes[0];
+      const practiceCount = notes.filter((note) => note.category === "课后练习" || note.category === "课后作业").length;
+      const progress = notes.length ? Math.min(100, notes.length * 10) : 0;
+
+      els.projectName.textContent = "课程学习";
+      els.currentProgress.textContent = latest ? latest.title || "最近课程笔记" : "记录一节课程";
+      els.subProgress.textContent = latest ? `${formatNoteTime(latest.time)} ｜ ${latest.teacher || "自主学习"}` : "记录老师讲的方法、纠正点和课后练习";
+      els.statusText.textContent = "学习模块";
+      els.targetText.textContent = "理解方法";
+      els.remainingText.textContent = `${todayNotes.length} 今日`;
+      els.progressText.textContent = `${todayNotes.length} 今日 / ${notes.length} 总`;
+      els.progressFill.style.width = `${progress}%`;
+
+      els.timerBox.classList.remove("running", "done");
+      els.timerBox.classList.add("text-mode");
+      els.timerNumber.textContent = "课程";
+      els.timerLabel.textContent = "上课笔记、方法要点、课后练习";
+
+      els.statCompleted.textContent = todayNotes.length;
+      els.statRateLabel.textContent = "累计课程";
+      els.statRate.textContent = notes.length;
+      els.statSuccessLabel.textContent = "课后练习";
+      els.statSuccess.textContent = practiceCount;
+      els.statFailLabel.textContent = "最近";
+      els.statFail.textContent = latest ? formatShortDate(latest.time) : "-";
+      els.statFail.classList.remove("bad");
+      els.statFail.classList.add("good");
+    }
+
+    function renderTimer(project, config) {
+      const seconds = getTimerSeconds();
+      els.timerBox.classList.toggle("running", project.status === "running");
+      els.timerBox.classList.toggle("done", project.status === "done" || project.status === "complete");
+      els.timerBox.classList.toggle("text-mode", project.finished || seconds <= 0);
+
+      if (project.finished) {
+        els.timerNumber.textContent = "完成";
+        els.timerLabel.textContent = "本项目训练已完成";
+        return;
+      }
+
+      if (seconds <= 0) {
+        els.timerNumber.textContent = config.waitingText;
+        els.timerLabel.textContent = project.status === "ready" ? "已准备，记录结果后自动进入下一项" : "记录结果后自动进入下一项";
+        return;
+      }
+
+      els.timerNumber.textContent = String(project.remainingSeconds ?? seconds);
+      if (project.status === "running") {
+        els.timerLabel.textContent = "计时中";
+      } else if (project.status === "done") {
+        els.timerLabel.textContent = config.doneText;
+      } else {
+        els.timerLabel.textContent = `${seconds} 秒倒计时`;
+      }
+    }
+
+    function renderButtons(project, config) {
+      const hasTimer = getTimerSeconds() > 0;
+      const canRecord = !project.finished && project.status !== "running" && (!hasTimer || project.status === "done" || project.status === "ready");
+      els.startBtn.disabled = project.finished || project.status === "running";
+      els.startBtn.textContent = project.status === "running" ? "计时中" : project.status === "done" ? "重新计时" : hasTimer ? "开始本次" : "进入待记录";
+      els.successBtn.textContent = config.successLabel;
+      els.failBtn.textContent = config.failLabel;
+      els.successBtn.disabled = !canRecord;
+      els.failBtn.disabled = !canRecord;
+      els.skipBtn.disabled = project.finished || project.status === "running";
+      els.undoBtn.disabled = project.undoStack.length === 0;
+    }
+
+    function getStatusText(project) {
+      if (project.finished) return "已完成";
+      if (project.status === "running") return "计时中";
+      if (project.status === "done") return "待记录";
+      if (project.status === "ready") return "可记录";
+      return getTimerSeconds() > 0 ? "未开始" : "待记录";
+    }
+
+    function renderStats(project, config, completed, total, rate) {
+      els.statCompleted.textContent = completed;
+      els.statRateLabel.textContent = config.rateLabel;
+      els.statRate.textContent = `${rate}%`;
+      els.statSuccessLabel.textContent = config.successStatLabel;
+      els.statSuccess.textContent = project.success;
+      els.statFailLabel.textContent = config.failStatLabel;
+      els.statFail.textContent = project.fail;
+      els.statFail.classList.add("bad");
+      els.statFail.classList.remove("good");
+    }
+
+    function renderSettings() {
+      const fivePoint = state.projects.fivePoint;
+      els.roundValue.textContent = fivePoint.totalGroups;
+      els.fivePointTimerToggle.checked = Boolean(fivePoint.timerEnabled);
+      els.wakeLockToggle.checked = Boolean(state.preferences.keepAwake);
+      const current = getConfig();
+      els.settingsInfo.textContent = state.currentModule === "course"
+        ? "课程学习模块用于记录老师讲的方法、纠正点、课后作业和后续训练验证。训练模块用于计时和统计完成率。"
+        : `当前项目：${current.name}。姿势入位训练固定为 7 组 × 7 次，每次 30 秒；五分点训练可在这里调整总轮数和可选计时。`;
+    }
+
+    function openSettings() {
+      renderSettings();
+      els.settingsModal.classList.add("show");
+    }
+
+    function openHistory() {
+      renderTodayHistory();
+      renderHistorySummary();
+      renderNoteHistory();
+      els.historyModal.classList.add("show");
+    }
+
+    function openNote(category = "课程笔记") {
+      els.noteContext.textContent = `${formatDate(new Date())} ｜ ${category}`;
+      els.lessonTitleInput.value = category === "课程笔记" ? "" : category;
+      els.lessonTeacherInput.value = "";
+      els.noteText.value = "";
+      els.noteImageInput.value = "";
+      pendingNoteImages = [];
+      renderNoteImagePreview();
+      els.noteModal.dataset.category = category;
+      els.noteModal.classList.add("show");
+      setTimeout(() => els.lessonTitleInput.focus(), 80);
+    }
+
+    function appendNoteText(text) {
+      const current = els.noteText.value.trim();
+      els.noteText.value = current ? `${current}\n${text}` : text;
+      els.noteText.focus();
+    }
+
+    function saveNote() {
+      const text = els.noteText.value.trim();
+      const title = els.lessonTitleInput.value.trim();
+      const teacher = els.lessonTeacherInput.value.trim();
+      const category = els.noteModal.dataset.category || "课程笔记";
+      if (!text && !title && !pendingNoteImages.length) return;
+
+      state.courseNotes.unshift({
+        id: createRecordId(),
+        date: todayKey,
+        time: new Date().toISOString(),
+        category,
+        title: title || category,
+        teacher,
+        text,
+        images: pendingNoteImages,
+        linkedTrainingProject: state.currentProject
+      });
+      state.courseNotes = state.courseNotes.slice(0, 200);
+      saveState();
+      render();
+      renderNoteHistory();
+      els.noteModal.classList.remove("show");
+    }
+
+    async function handleNoteImages(event) {
+      const files = Array.from(event.target.files || []);
+      const slots = Math.max(0, 4 - pendingNoteImages.length);
+      const selected = files.slice(0, slots);
+      for (const file of selected) {
+        if (!file.type.startsWith("image/")) continue;
+        try {
+          const image = await compressImage(file);
+          pendingNoteImages.push(image);
+        } catch (error) {
+          alert("有一张图片处理失败，请换一张再试。");
+        }
+      }
+      event.target.value = "";
+      renderNoteImagePreview();
+    }
+
+    function renderNoteImagePreview() {
+      if (!pendingNoteImages.length) {
+        els.noteImagePreview.innerHTML = "";
+        return;
+      }
+
+      els.noteImagePreview.innerHTML = pendingNoteImages.map((image, index) => `
+        <div class="note-image-thumb">
+          <img src="${image.dataUrl}" alt="笔记图片 ${index + 1}">
+          <button class="remove-image" data-index="${index}" aria-label="删除图片">×</button>
+        </div>
+      `).join("");
+
+      els.noteImagePreview.querySelectorAll(".remove-image").forEach((button) => {
+        button.addEventListener("click", () => {
+          pendingNoteImages.splice(Number(button.dataset.index), 1);
+          renderNoteImagePreview();
+        });
+      });
+    }
+
+    function compressImage(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onerror = reject;
+        reader.onload = () => {
+          const image = new Image();
+          image.onerror = reject;
+          image.onload = () => {
+            const maxSide = 1200;
+            const scale = Math.min(1, maxSide / Math.max(image.width, image.height));
+            const width = Math.max(1, Math.round(image.width * scale));
+            const height = Math.max(1, Math.round(image.height * scale));
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(image, 0, 0, width, height);
+            const dataUrl = canvas.toDataURL("image/jpeg", 0.74);
+            resolve({
+              name: file.name,
+              type: "image/jpeg",
+              width,
+              height,
+              dataUrl
+            });
+          };
+          image.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function renderTodayHistory() {
+      const records = (state.todayRecords[todayKey] || []).slice().reverse().slice(0, 20);
+      if (!records.length) {
+        els.todayHistory.innerHTML = `<div class="empty">今天还没有记录。</div>`;
+        return;
+      }
+
+      els.todayHistory.innerHTML = records.map((record) => {
+        const config = trainingConfigs[record.projectKey];
+        const time = new Date(record.time).toLocaleTimeString("zh-CN", {
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+        return `
+          <div class="history-item">
+            <strong>${record.projectName}：${record.label}</strong>
+            <span>${time} ｜ 第 ${record.group} ${config.unitA} ｜ 第 ${record.rep} ${config.unitB}</span>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderHistorySummary() {
+      const summaries = Array.isArray(state.history) ? state.history : [];
+      const dailyRecords = Object.entries(state.todayRecords || {})
+        .sort(([a], [b]) => b.localeCompare(a))
+        .slice(0, 14);
+
+      if (!summaries.length && !dailyRecords.length) {
+        els.historySummary.innerHTML = `<div class="empty">还没有历史训练记录。</div>`;
+        return;
+      }
+
+      const summaryHtml = summaries.slice(0, 20).map((item) => {
+        const finished = item.finishedAt ? new Date(item.finishedAt).toLocaleTimeString("zh-CN", {
+          hour: "2-digit",
+          minute: "2-digit"
+        }) : "";
+        return `
+          <div class="history-item">
+            <strong>${item.date} ${item.projectName}</strong>
+            <span>${finished} ｜ 总 ${item.total} ｜ 成功/稳定 ${item.success} ｜ 失败/不稳 ${item.fail} ｜ ${item.rate}%</span>
+          </div>
+        `;
+      }).join("");
+
+      const dailyHtml = dailyRecords.map(([date, records]) => {
+        const success = records.filter((record) => record.type === "success").length;
+        const fail = records.filter((record) => record.type === "fail").length;
+        const skip = records.filter((record) => record.type === "skip").length;
+        return `
+          <div class="history-item">
+            <strong>${date} 每日记录</strong>
+            <span>总 ${records.length} ｜ 成功/稳定 ${success} ｜ 失败/不稳 ${fail} ｜ 跳过 ${skip}</span>
+          </div>
+        `;
+      }).join("");
+
+      els.historySummary.innerHTML = `${summaryHtml}${dailyHtml}`;
+    }
+
+    function renderNoteHistory() {
+      const notes = Array.isArray(state.courseNotes) ? state.courseNotes.slice(0, 50) : [];
+      if (!notes.length) {
+        els.noteHistory.innerHTML = `<div class="empty">还没有课程笔记。</div>`;
+        return;
+      }
+
+      els.noteHistory.innerHTML = notes.map((note) => {
+        const time = new Date(note.time).toLocaleString("zh-CN", {
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+        const images = Array.isArray(note.images) ? note.images : [];
+        const imageHtml = images.length ? `
+          <div class="history-images">
+            ${images.map((image, index) => `
+              <div class="note-image-thumb">
+                <img src="${image.dataUrl}" alt="课程图片 ${index + 1}">
+              </div>
+            `).join("")}
+          </div>
+        ` : "";
+        return `
+          <div class="history-item">
+            <strong>${escapeHtml(time)} ${escapeHtml(note.title || "课程笔记")}</strong>
+            <span>${escapeHtml(note.category || "课程笔记")}${note.teacher ? ` ｜ ${escapeHtml(note.teacher)}` : ""}</span>
+            <span>${escapeHtml(note.text || "").replace(/\n/g, "<br>")}</span>
+            ${imageHtml}
+          </div>
+        `;
+      }).join("");
+    }
+
+    function exportData() {
+      const payload = {
+        exportedAt: new Date().toISOString(),
+        app: "台球学习与训练",
+        version: 3,
+        state
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `台球学习与训练-${todayKey}.json`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function getPositionText(project, config) {
+      return `第 ${Math.min(project.currentGroup, project.totalGroups)} ${config.unitA} / ${project.totalGroups} ｜ 第 ${Math.min(project.currentRep, config.repsPerGroup)} ${config.unitB} / ${config.repsPerGroup}`;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    async function requestWakeLock() {
+      if (!state.preferences.keepAwake || !("wakeLock" in navigator)) return;
+      try {
+        wakeLock = await navigator.wakeLock.request("screen");
+        wakeLock.addEventListener("release", () => {
+          wakeLock = null;
+        });
+      } catch (error) {
+        wakeLock = null;
+      }
+    }
+
+    function releaseWakeLock() {
+      if (wakeLock) {
+        wakeLock.release().catch(() => {});
+        wakeLock = null;
+      }
+    }
+
+    function calcRate(project) {
+      const counted = project.success + project.fail;
+      if (!counted) return 0;
+      return Math.round((project.success / counted) * 100);
+    }
+
+    function vibrate() {
+      if ("vibrate" in navigator) {
+        navigator.vibrate([200, 100, 200]);
+      }
+    }
+
+    function stopTimer() {
+      if (timerId) {
+        clearInterval(timerId);
+        timerId = null;
+      }
+      releaseWakeLock();
+    }
+
+    function getDateKey(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function formatDate(date) {
+      return date.toLocaleDateString("zh-CN", {
+        month: "long",
+        day: "numeric",
+        weekday: "short"
+      });
+    }
+
+    function formatNoteTime(value) {
+      return new Date(value).toLocaleString("zh-CN", {
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+
+    function formatShortDate(value) {
+      return new Date(value).toLocaleDateString("zh-CN", {
+        month: "2-digit",
+        day: "2-digit"
+      });
+    }
+
+    function createRecordId() {
+      return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    if ("serviceWorker" in navigator && location.protocol !== "file:") {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
