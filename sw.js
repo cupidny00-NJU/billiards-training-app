@@ -1,11 +1,21 @@
-const CACHE_NAME = "billiards-training-v5";
+const CACHE_NAME = "billiards-training-v8";
 const APP_ASSETS = [
   "./",
   "./index.html",
   "./manifest.json",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
-  "./icons/apple-touch-icon.png"
+  "./icons/apple-touch-icon.png",
+  "./assets/ball-shapes/shape-01.jpg",
+  "./assets/ball-shapes/shape-02.jpg",
+  "./assets/ball-shapes/shape-03.jpg",
+  "./assets/ball-shapes/shape-04.jpg",
+  "./assets/ball-shapes/shape-05.jpg",
+  "./assets/ball-shapes/shape-06.jpg",
+  "./assets/ball-shapes/shape-07.jpg",
+  "./assets/ball-shapes/shape-08.jpg",
+  "./assets/ball-shapes/shape-09.jpg",
+  "./assets/ball-shapes/shape-10.jpg"
 ];
 
 self.addEventListener("install", (event) => {

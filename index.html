@@ -644,6 +644,24 @@
       font-size: 14px;
     }
 
+    .history-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .history-edit {
+      min-height: 30px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 8px;
+      padding: 5px 9px;
+      color: #dcebe4;
+      background: rgba(255, 255, 255, .07);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
     .empty {
       color: var(--muted);
       font-size: 13px;
@@ -673,6 +691,7 @@
       box-shadow: var(--shadow);
       padding: 16px;
       display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
       gap: 13px;
       overflow: hidden;
     }
@@ -682,6 +701,9 @@
       overflow: auto;
       display: grid;
       gap: 12px;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      touch-action: pan-y;
     }
 
     .modal h2 {
@@ -838,6 +860,199 @@
       object-fit: cover;
     }
 
+    .image-thumb-button {
+      padding: 0;
+      cursor: pointer;
+      text-align: left;
+      appearance: none;
+      -webkit-appearance: none;
+      font: inherit;
+    }
+
+    .image-thumb-button:focus-visible {
+      outline: 2px solid rgba(36, 194, 122, .85);
+      outline-offset: 2px;
+    }
+
+    .image-viewer-card {
+      max-height: 92dvh;
+    }
+
+    .image-viewer {
+      min-height: 0;
+      max-height: 70dvh;
+      overflow: auto;
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, .42);
+      border: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .image-viewer img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .shape-panel {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 10px;
+      align-items: stretch;
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .045);
+    }
+
+    .shape-cover {
+      width: 92px;
+      min-height: 122px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .04);
+    }
+
+    .shape-cover img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .shape-placeholder {
+      height: 100%;
+      min-height: 122px;
+      display: grid;
+      place-items: center;
+      padding: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .shape-detail {
+      min-width: 0;
+      display: grid;
+      gap: 6px;
+      align-content: start;
+    }
+
+    .shape-detail-head {
+      display: flex;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: start;
+    }
+
+    .shape-detail h3 {
+      margin: 0;
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.25;
+    }
+
+    .shape-time {
+      flex: 0 0 auto;
+      padding: 4px 7px;
+      border-radius: 999px;
+      color: #062017;
+      background: var(--green);
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .shape-detail p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .shape-mini-list {
+      margin: 0;
+      padding-left: 16px;
+      color: #dcebe4;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .shape-mini-list li + li {
+      margin-top: 2px;
+    }
+
+    .shape-library {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      align-content: start;
+      padding-bottom: 4px;
+    }
+
+    .shape-library-modal {
+      height: min(88dvh, 680px);
+      max-height: min(88dvh, 680px);
+    }
+
+    .shape-library-scroll {
+      overflow-y: auto;
+      max-height: none;
+      padding-right: 2px;
+    }
+
+    .shape-card-button {
+      overflow: hidden;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .045);
+      color: var(--text);
+      text-align: left;
+    }
+
+    .shape-card-button:disabled {
+      cursor: default;
+      opacity: .72;
+    }
+
+    .shape-card-button.active {
+      border-color: rgba(36, 194, 122, .7);
+      box-shadow: 0 0 0 2px rgba(36, 194, 122, .18) inset;
+    }
+
+    .shape-card-button img,
+    .shape-card-placeholder {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      display: block;
+      object-fit: cover;
+      background: rgba(255, 255, 255, .04);
+    }
+
+    .shape-card-placeholder {
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .shape-card-body {
+      display: grid;
+      gap: 3px;
+      padding: 8px;
+    }
+
+    .shape-card-body strong {
+      font-size: 13px;
+      line-height: 1.25;
+    }
+
+    .shape-card-body span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
     .remove-image {
       position: absolute;
       right: 4px;
@@ -851,21 +1066,93 @@
       font-weight: 900;
     }
 
-    .quick-notes {
+    .learning-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .learning-card {
+      display: grid;
+      gap: 9px;
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, .085);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .045);
+    }
+
+    .learning-card-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .learning-card-head strong {
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    .learning-card-head span {
+      flex: 0 0 auto;
+      padding: 4px 8px;
+      border-radius: 999px;
+      color: #062017;
+      background: var(--green);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .learning-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .tip-list {
+      display: grid;
+      gap: 6px;
+      margin: 0;
+      padding-left: 18px;
+      color: #dcebe4;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .shape-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
     }
 
-    .note-chip {
-      min-height: 38px;
-      border: 1px solid rgba(255, 255, 255, .1);
-      border-radius: var(--radius);
+    .shape-slot {
+      min-height: 42px;
+      display: grid;
+      align-content: center;
+      gap: 2px;
       padding: 8px;
+      border: 1px dashed rgba(255, 255, 255, .18);
+      border-radius: var(--radius);
       color: #dcebe4;
-      background: rgba(255, 255, 255, .07);
+      background: rgba(255, 255, 255, .035);
       font-size: 13px;
-      font-weight: 750;
+      font-weight: 800;
+    }
+
+    .shape-slot span {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 650;
+    }
+
+    .inline-action {
+      min-height: 38px;
+      border: 1px solid rgba(36, 194, 122, .34);
+      border-radius: var(--radius);
+      color: #b8f5d2;
+      background: rgba(36, 194, 122, .1);
+      font-size: 13px;
+      font-weight: 850;
     }
 
     .hidden {
@@ -998,6 +1285,19 @@
         </div>
       </div>
 
+      <section class="shape-panel hidden" id="shapePanel" aria-label="当前入门球形">
+        <button class="shape-cover image-thumb-button" id="shapeImageBtn" type="button" aria-label="查看当前球形图片"></button>
+        <div class="shape-detail">
+          <div class="shape-detail-head">
+            <h3 id="shapeTitle"></h3>
+            <span class="shape-time" id="shapeTime"></span>
+          </div>
+          <p id="shapeGoal"></p>
+          <ul class="shape-mini-list" id="shapeFocus"></ul>
+          <button class="inline-action" id="shapeLibraryBtn" type="button">选择入门球形</button>
+        </div>
+      </section>
+
       <div class="bar-wrap">
         <div class="bar-meta">
           <span>总进度</span>
@@ -1016,27 +1316,22 @@
         <button class="btn btn-fail" id="failBtn"></button>
       </div>
       <div class="tool-grid">
-        <button class="btn btn-muted" id="skipBtn">跳过</button>
-        <button class="btn btn-muted" id="undoBtn">撤销</button>
+        <button class="btn btn-muted" id="undoBtn">结束训练</button>
+        <button class="btn btn-muted" id="shapeQuickBtn">入门球形</button>
         <button class="btn btn-muted" id="noteBtn">课程</button>
-        <button class="btn btn-muted" id="settingsBtn">设置</button>
         <button class="btn btn-muted" id="historyBtn">历史</button>
-        <button class="btn btn-muted" id="resetBtn">重置</button>
+        <button class="btn btn-muted" id="resetBtn">重置时间</button>
       </div>
     </section>
 
     <section class="actions hidden" id="courseActions" aria-label="课程学习操作">
-      <button class="btn btn-primary" id="newLessonBtn">新建上课笔记</button>
+      <button class="btn btn-primary" id="newLessonBtn">上传课程笔记图片</button>
       <div class="action-grid">
-        <button class="btn btn-success" id="reviewLessonsBtn">查看课程</button>
-        <button class="btn btn-success" id="coursePracticeBtn">记录课后练习</button>
+        <button class="btn btn-success" id="reviewLessonsBtn">查看图片</button>
+        <button class="btn btn-success" id="courseTrainingBtn">进入训练</button>
       </div>
       <div class="tool-grid">
-        <button class="btn btn-muted" id="methodNoteBtn">方法</button>
-        <button class="btn btn-muted" id="homeworkNoteBtn">作业</button>
-        <button class="btn btn-muted" id="courseHistoryBtn">历史</button>
-        <button class="btn btn-muted" id="courseTrainingBtn">训练</button>
-        <button class="btn btn-muted" id="courseSettingsBtn">设置</button>
+        <button class="btn btn-muted" id="courseHistoryBtn">全部记录</button>
         <button class="btn btn-muted" id="courseExportBtn">导出</button>
       </div>
     </section>
@@ -1077,24 +1372,6 @@
     <section class="modal">
       <h2 id="settingsTitle">训练设置</h2>
       <div class="modal-scroll">
-        <section class="settings-card" id="fivePointSettings">
-          <div class="section-title">五分点训练</div>
-          <div class="settings-row">
-            <span>总轮数</span>
-            <div class="number-stepper">
-              <button class="small-btn" id="roundMinus" aria-label="减少轮数">−</button>
-              <span class="round-value" id="roundValue">5</span>
-              <button class="small-btn" id="roundPlus" aria-label="增加轮数">+</button>
-            </div>
-          </div>
-          <div class="switch-line">
-            <span>启用 45 秒可选计时</span>
-            <label class="switch">
-              <input type="checkbox" id="fivePointTimerToggle">
-              <span class="slider"></span>
-            </label>
-          </div>
-        </section>
         <div class="advice" id="settingsInfo"></div>
         <div class="switch-line">
           <span>计时期间尽量保持屏幕常亮</span>
@@ -1110,29 +1387,30 @@
 
   <div class="modal-backdrop" id="noteModal" role="dialog" aria-modal="true" aria-labelledby="noteTitle">
     <section class="modal">
-      <h2 id="noteTitle">上课笔记</h2>
+      <h2 id="noteTitle">课程笔记图片</h2>
       <div class="modal-scroll">
         <div class="note-context" id="noteContext"></div>
-        <input class="text-field" id="lessonTitleInput" type="text" placeholder="课程主题，如：入位、瞄准、出杆节奏">
-        <input class="text-field" id="lessonTeacherInput" type="text" placeholder="老师 / 来源（可选）">
-        <textarea class="note-input" id="noteText" placeholder="记录老师讲的方法、关键动作、错误纠正、课后作业、需要训练验证的点..."></textarea>
         <div class="image-upload">
-          <label class="file-button" for="noteImageInput">上传笔记图片</label>
-          <span class="image-hint">最多 4 张，自动压缩保存</span>
+          <label class="file-button" for="noteImageInput">选择图片</label>
+          <span class="image-hint">最多 12 张，保存后可点开查看</span>
           <input class="file-input" id="noteImageInput" type="file" accept="image/*" multiple>
         </div>
         <div class="image-preview" id="noteImagePreview"></div>
-        <div class="quick-notes" aria-label="快速笔记">
-          <button class="note-chip" data-note="方法要点：">方法要点</button>
-          <button class="note-chip" data-note="常见错误：">常见错误</button>
-          <button class="note-chip" data-note="老师纠正：">老师纠正</button>
-          <button class="note-chip" data-note="课后作业：">课后作业</button>
-        </div>
       </div>
       <div class="modal-actions">
         <button class="btn btn-muted" id="closeNoteBtn">取消</button>
-        <button class="btn btn-primary" id="saveNoteBtn">保存笔记</button>
+        <button class="btn btn-primary" id="saveNoteBtn">保存图片</button>
       </div>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="shapeLibraryModal" role="dialog" aria-modal="true" aria-labelledby="shapeLibraryTitle">
+    <section class="modal shape-library-modal">
+      <h2 id="shapeLibraryTitle">入门球形训练</h2>
+      <div class="modal-scroll shape-library-scroll">
+        <div class="shape-library" id="shapeLibrary"></div>
+      </div>
+      <button class="btn btn-primary" id="closeShapeLibraryBtn">关闭</button>
     </section>
   </div>
 
@@ -1140,16 +1418,16 @@
     <section class="modal">
       <h2 id="historyTitle">学习与训练记录</h2>
       <div class="modal-scroll">
-        <section class="history-card">
-          <div class="section-title">课程笔记</div>
+        <section class="history-card" id="noteHistoryCard">
+          <div class="section-title">课程图片</div>
           <div class="history-list" id="noteHistory"></div>
         </section>
-        <section class="history-card">
+        <section class="history-card" id="historySummaryCard">
           <div class="section-title">训练总结</div>
           <div class="history-summary" id="historySummary"></div>
         </section>
-        <section class="history-card">
-          <div class="section-title">今日明细</div>
+        <section class="history-card" id="todayHistoryCard">
+          <div class="section-title" id="todayHistoryTitle">今日明细</div>
           <div class="history-list" id="todayHistory"></div>
         </section>
       </div>
@@ -1161,7 +1439,100 @@
     </section>
   </div>
 
+  <div class="modal-backdrop" id="imageModal" role="dialog" aria-modal="true" aria-labelledby="imageViewerTitle">
+    <section class="modal image-viewer-card">
+      <h2 id="imageViewerTitle">课程图片</h2>
+      <div class="image-viewer">
+        <img id="imageViewerImg" alt="课程图片大图">
+      </div>
+      <button class="btn btn-primary" id="closeImageBtn">关闭</button>
+    </section>
+  </div>
+
   <script>
+    const ballShapeItems = [
+      {
+        title: "球型一：空杆训练",
+        time: "10分钟",
+        target: "建立最基础的出杆直线感",
+        image: "assets/ball-shapes/shape-01.jpg",
+        practice: ["不击球，只练球杆线路", "练习运杆稳定性", "感受球杆是否直进直出", "速度可以逐渐加快"],
+        focus: ["不急着击球", "先确认球杆线路", "运杆稳定后再提高速度"]
+      },
+      {
+        title: "球型二：中袋近距离单颗球击打",
+        time: "10分钟",
+        target: "10进10，先保证简单球型百分百稳定",
+        image: "assets/ball-shapes/shape-02.jpg",
+        practice: ["近距离目标球打中袋", "重复固定线路"],
+        focus: ["确认瞄准线", "保持出杆稳定", "不追求力量"]
+      },
+      {
+        title: "球型三：15颗球训练",
+        time: "10分钟",
+        target: "15进15，训练动作重复性",
+        image: "assets/ball-shapes/shape-03.jpg",
+        practice: ["连续击打15颗球", "保持同一个动作节奏"],
+        focus: ["每颗球重新入位", "不因为连续球而加快动作"]
+      },
+      {
+        title: "球型四：底袋远距离单颗球击打",
+        time: "10分钟",
+        target: "10进10，提升远台准度",
+        image: "assets/ball-shapes/shape-04.jpg",
+        practice: ["远距离底袋球"],
+        focus: ["长距离更考验出杆直线", "不能靠力量解决", "注意杆速稳定"]
+      },
+      {
+        title: "球型五：开球线15颗球击打底袋",
+        time: "10分钟",
+        target: "15进15，提升比赛中常见长距离球能力",
+        image: "assets/ball-shapes/shape-05.jpg",
+        practice: ["开球线附近连续击打", "目标袋：底袋"],
+        focus: ["控制击球节奏", "保持稳定动作"]
+      },
+      {
+        title: "球型六：库边直角15球击打中袋",
+        time: "10分钟",
+        target: "15进15，提升薄厚球判断能力",
+        image: "assets/ball-shapes/shape-06.jpg",
+        practice: ["库边直角球连续击打", "两侧中袋都要练"],
+        focus: ["库边球线路判断", "减少角度误差", "保持杆头稳定"]
+      },
+      {
+        title: "球型七：推白球训练",
+        time: "10分钟",
+        target: "10进8，从只会进球进入控制母球",
+        image: "assets/ball-shapes/shape-07.jpg",
+        practice: ["击球后观察母球路线", "练习母球控制"],
+        focus: ["母球停在哪里", "力度是否合适", "线路是否符合预期"]
+      },
+      {
+        title: "球型八：近距离定杆",
+        time: "10分钟",
+        target: "15进15，建立基础杆法感觉",
+        image: "assets/ball-shapes/shape-08.jpg",
+        practice: ["近距离击球", "母球停在原地附近"],
+        focus: ["减少跟杆", "减少缩杆", "控制力量"]
+      },
+      {
+        title: "球型九：定杆吃库",
+        time: "10分钟",
+        target: "15进15，增强库边球控制能力",
+        image: "assets/ball-shapes/shape-09.jpg",
+        practice: ["定杆后利用库边变化"],
+        focus: ["控制母球撞库后的线路", "感受力度变化"]
+      },
+      {
+        title: "球型十：高杆低杆定杆蛇彩",
+        time: "10分钟",
+        target: "从基础击球进入实战走位",
+        image: "assets/ball-shapes/shape-10.jpg",
+        practice: ["高杆", "低杆", "定杆", "蛇彩线路"],
+        focus: ["准度", "力度", "母球控制", "走位意识"]
+      }
+    ];
+
     const trainingConfigs = {
       posture: {
         name: "姿势入位训练",
@@ -1184,26 +1555,25 @@
           return "可以逐步加入出杆或直线球训练";
         }
       },
-      fivePoint: {
-        name: "五分点训练",
-        unitA: "轮",
-        unitB: "点",
-        totalGroups: 5,
-        repsPerGroup: 5,
-        timerSeconds: 0,
-        optionalTimerSeconds: 45,
-        successLabel: "进球/完成",
-        failLabel: "失误",
-        rateLabel: "成功率",
-        successStatLabel: "成功次数",
-        failStatLabel: "失误次数",
-        completeText: "待记录",
+      ballShape: {
+        name: "入门球形训练",
+        unitA: "球形",
+        unitB: "次",
+        totalGroups: ballShapeItems.length,
+        repsPerGroup: 1,
+        timerSeconds: 600,
+        successLabel: "达标",
+        failLabel: "未达标",
+        rateLabel: "达标率",
+        successStatLabel: "达标次数",
+        failStatLabel: "未达标次数",
+        completeText: "完成状态",
         waitingText: "待记录",
         doneText: "计时结束",
         advice(rate) {
-          if (rate < 50) return "先降低难度，固定动作节奏";
-          if (rate <= 75) return "继续练习点位稳定性";
-          return "可以增加连续完成目标或加入走位要求";
+          if (rate < 60) return "先降低速度，确保每个球形都按要求重新入位";
+          if (rate <= 80) return "继续保持，重点观察后半段动作是否变快";
+          return "可以开始记录母球走位和连续达标次数";
         }
       }
     };
@@ -1212,6 +1582,8 @@
     const todayKey = getDateKey(new Date());
     let timerId = null;
     let wakeLock = null;
+    let audioContext = null;
+    let lastSaveErrorAt = 0;
     let pendingNoteImages = [];
     let state = loadState();
 
@@ -1237,10 +1609,9 @@
       startBtn: document.getElementById("startBtn"),
       successBtn: document.getElementById("successBtn"),
       failBtn: document.getElementById("failBtn"),
-      skipBtn: document.getElementById("skipBtn"),
       undoBtn: document.getElementById("undoBtn"),
+      shapeQuickBtn: document.getElementById("shapeQuickBtn"),
       noteBtn: document.getElementById("noteBtn"),
-      settingsBtn: document.getElementById("settingsBtn"),
       historyBtn: document.getElementById("historyBtn"),
       resetBtn: document.getElementById("resetBtn"),
       statCompleted: document.getElementById("statCompleted"),
@@ -1253,42 +1624,49 @@
       todayHistory: document.getElementById("todayHistory"),
       historySummary: document.getElementById("historySummary"),
       noteHistory: document.getElementById("noteHistory"),
-      fivePointSettings: document.getElementById("fivePointSettings"),
+      shapePanel: document.getElementById("shapePanel"),
+      shapeImageBtn: document.getElementById("shapeImageBtn"),
+      shapeTitle: document.getElementById("shapeTitle"),
+      shapeTime: document.getElementById("shapeTime"),
+      shapeGoal: document.getElementById("shapeGoal"),
+      shapeFocus: document.getElementById("shapeFocus"),
+      shapeLibraryBtn: document.getElementById("shapeLibraryBtn"),
+      shapeLibraryModal: document.getElementById("shapeLibraryModal"),
+      shapeLibrary: document.getElementById("shapeLibrary"),
       settingsInfo: document.getElementById("settingsInfo"),
       wakeLockToggle: document.getElementById("wakeLockToggle"),
-      roundMinus: document.getElementById("roundMinus"),
-      roundPlus: document.getElementById("roundPlus"),
-      roundValue: document.getElementById("roundValue"),
-      fivePointTimerToggle: document.getElementById("fivePointTimerToggle"),
       clearAllBtn: document.getElementById("clearAllBtn"),
       summaryModal: document.getElementById("summaryModal"),
       settingsModal: document.getElementById("settingsModal"),
       noteModal: document.getElementById("noteModal"),
       historyModal: document.getElementById("historyModal"),
+      imageModal: document.getElementById("imageModal"),
       noteContext: document.getElementById("noteContext"),
-      noteText: document.getElementById("noteText"),
       noteImageInput: document.getElementById("noteImageInput"),
       noteImagePreview: document.getElementById("noteImagePreview"),
+      imageViewerTitle: document.getElementById("imageViewerTitle"),
+      imageViewerImg: document.getElementById("imageViewerImg"),
       summaryTitle: document.getElementById("summaryTitle"),
+      historyTitle: document.getElementById("historyTitle"),
       summaryList: document.getElementById("summaryList"),
       summaryAdvice: document.getElementById("summaryAdvice"),
       closeSummaryBtn: document.getElementById("closeSummaryBtn"),
       closeSettingsBtn: document.getElementById("closeSettingsBtn"),
       closeNoteBtn: document.getElementById("closeNoteBtn"),
+      closeShapeLibraryBtn: document.getElementById("closeShapeLibraryBtn"),
+      closeImageBtn: document.getElementById("closeImageBtn"),
       saveNoteBtn: document.getElementById("saveNoteBtn"),
       exportBtn: document.getElementById("exportBtn"),
       closeHistoryBtn: document.getElementById("closeHistoryBtn"),
       newLessonBtn: document.getElementById("newLessonBtn"),
       reviewLessonsBtn: document.getElementById("reviewLessonsBtn"),
-      coursePracticeBtn: document.getElementById("coursePracticeBtn"),
-      methodNoteBtn: document.getElementById("methodNoteBtn"),
-      homeworkNoteBtn: document.getElementById("homeworkNoteBtn"),
       courseHistoryBtn: document.getElementById("courseHistoryBtn"),
       courseTrainingBtn: document.getElementById("courseTrainingBtn"),
-      courseSettingsBtn: document.getElementById("courseSettingsBtn"),
       courseExportBtn: document.getElementById("courseExportBtn"),
-      lessonTitleInput: document.getElementById("lessonTitleInput"),
-      lessonTeacherInput: document.getElementById("lessonTeacherInput")
+      noteHistoryCard: document.getElementById("noteHistoryCard"),
+      historySummaryCard: document.getElementById("historySummaryCard"),
+      todayHistoryCard: document.getElementById("todayHistoryCard"),
+      todayHistoryTitle: document.getElementById("todayHistoryTitle")
     };
 
     init();
@@ -1315,42 +1693,35 @@
       els.startBtn.addEventListener("click", startCurrentAttempt);
       els.successBtn.addEventListener("click", () => recordResult("success"));
       els.failBtn.addEventListener("click", () => recordResult("fail"));
-      els.skipBtn.addEventListener("click", () => recordResult("skip"));
-      els.undoBtn.addEventListener("click", undoLast);
+      els.undoBtn.addEventListener("click", endCurrentTraining);
+      els.shapeQuickBtn.addEventListener("click", openShapeLibrary);
       els.noteBtn.addEventListener("click", () => switchModule("course"));
-      els.settingsBtn.addEventListener("click", openSettings);
       els.historyBtn.addEventListener("click", openHistory);
-      els.resetBtn.addEventListener("click", resetCurrentProject);
+      els.resetBtn.addEventListener("click", resetCurrentTimer);
       els.newLessonBtn.addEventListener("click", openNote);
-      els.reviewLessonsBtn.addEventListener("click", openHistory);
-      els.coursePracticeBtn.addEventListener("click", () => openNote("课后练习"));
-      els.methodNoteBtn.addEventListener("click", () => openNote("方法要点"));
-      els.homeworkNoteBtn.addEventListener("click", () => openNote("课后作业"));
+      els.reviewLessonsBtn.addEventListener("click", openCourseLibrary);
       els.courseHistoryBtn.addEventListener("click", openHistory);
       els.courseTrainingBtn.addEventListener("click", () => switchModule("training"));
-      els.courseSettingsBtn.addEventListener("click", openSettings);
       els.courseExportBtn.addEventListener("click", exportData);
       els.clearAllBtn.addEventListener("click", clearAllData);
       els.closeSummaryBtn.addEventListener("click", () => els.summaryModal.classList.remove("show"));
       els.closeSettingsBtn.addEventListener("click", () => els.settingsModal.classList.remove("show"));
       els.closeNoteBtn.addEventListener("click", () => els.noteModal.classList.remove("show"));
+      els.closeShapeLibraryBtn.addEventListener("click", () => els.shapeLibraryModal.classList.remove("show"));
+      els.closeImageBtn.addEventListener("click", () => els.imageModal.classList.remove("show"));
       els.saveNoteBtn.addEventListener("click", saveNote);
       els.noteImageInput.addEventListener("change", handleNoteImages);
+      els.shapeImageBtn.addEventListener("click", openCurrentShapeImage);
+      els.shapeLibraryBtn.addEventListener("click", openShapeLibrary);
       els.exportBtn.addEventListener("click", exportData);
       els.closeHistoryBtn.addEventListener("click", () => els.historyModal.classList.remove("show"));
-      document.querySelectorAll(".note-chip").forEach((button) => {
-        button.addEventListener("click", () => appendNoteText(button.dataset.note || button.textContent));
+      document.addEventListener("touchstart", unlockAudio, { once: true, passive: true });
+      document.addEventListener("click", unlockAudio, { once: true });
+      els.imageModal.addEventListener("click", (event) => {
+        if (event.target === els.imageModal) els.imageModal.classList.remove("show");
       });
-      els.roundMinus.addEventListener("click", () => changeFivePointRounds(-1));
-      els.roundPlus.addEventListener("click", () => changeFivePointRounds(1));
-      els.fivePointTimerToggle.addEventListener("change", () => {
-        const project = state.projects.fivePoint;
-        project.timerEnabled = els.fivePointTimerToggle.checked;
-        project.remainingSeconds = getTimerSeconds("fivePoint");
-        project.status = "idle";
-        stopTimer();
-        saveState();
-        render();
+      els.shapeLibraryModal.addEventListener("click", (event) => {
+        if (event.target === els.shapeLibraryModal) els.shapeLibraryModal.classList.remove("show");
       });
       els.wakeLockToggle.addEventListener("change", () => {
         state.preferences.keepAwake = els.wakeLockToggle.checked;
@@ -1397,7 +1768,8 @@
         status: "idle",
         remainingSeconds: config.timerSeconds || 0,
         totalGroups: config.totalGroups,
-        timerEnabled: key === "posture",
+        timerEnabled: config.timerSeconds > 0,
+        selectedShapeIndex: 0,
         undoStack: [],
         finished: false
       };
@@ -1438,8 +1810,15 @@
         if (!Array.isArray(merged.projects[key].undoStack)) {
           merged.projects[key].undoStack = [];
         }
-        if (key === "posture" && merged.projects[key].status === "idle" && merged.projects[key].remainingSeconds !== config.timerSeconds) {
-          merged.projects[key].remainingSeconds = config.timerSeconds;
+        merged.projects[key].totalGroups = config.totalGroups;
+        if (key === "ballShape") {
+          const savedIndex = Number(merged.projects[key].selectedShapeIndex);
+          const fallbackIndex = Number(merged.projects[key].currentGroup) - 1;
+          merged.projects[key].selectedShapeIndex = clamp(Number.isFinite(savedIndex) ? savedIndex : fallbackIndex, 0, ballShapeItems.length - 1);
+        }
+        const idleSeconds = config.timerSeconds;
+        if (merged.projects[key].status === "idle" && idleSeconds > 0 && merged.projects[key].remainingSeconds !== idleSeconds) {
+          merged.projects[key].remainingSeconds = idleSeconds;
         }
       });
 
@@ -1454,7 +1833,15 @@
     }
 
     function saveState() {
-      localStorage.setItem(storageKey, JSON.stringify(state));
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (error) {
+        const now = Date.now();
+        if (now - lastSaveErrorAt > 3000) {
+          lastSaveErrorAt = now;
+          alert("本机存储空间不足，当前改动可能没有保存。建议先导出数据，再清理较旧的课程图片。");
+        }
+      }
     }
 
     function ensureProject(key) {
@@ -1479,8 +1866,6 @@
 
     function getTimerSeconds(key = state.currentProject) {
       const config = trainingConfigs[key];
-      const project = state.projects[key];
-      if (key === "fivePoint" && project.timerEnabled) return config.optionalTimerSeconds;
       return config.timerSeconds;
     }
 
@@ -1510,7 +1895,7 @@
         if (current.remainingSeconds <= 0) {
           current.status = "done";
           stopTimer();
-          vibrate();
+          notifyTrainingEnd();
         }
         saveState();
         render();
@@ -1539,14 +1924,15 @@
       addRecord(type, project);
       advancePosition(project);
 
-      if (project.completed >= getTotal(project)) {
+      if (state.currentProject !== "ballShape" && project.completed >= getTotal(project)) {
         project.finished = true;
         project.status = "complete";
         project.remainingSeconds = 0;
-        saveHistorySummary();
+        saveHistorySummary("自动完成");
         saveState();
         render();
-        showSummary();
+        notifyTrainingEnd();
+        showSummary("训练完成");
         return;
       }
 
@@ -1568,7 +1954,8 @@
         remainingSeconds: project.remainingSeconds,
         finished: project.finished,
         totalGroups: project.totalGroups,
-        timerEnabled: project.timerEnabled
+        timerEnabled: project.timerEnabled,
+        selectedShapeIndex: project.selectedShapeIndex
       };
     }
 
@@ -1586,8 +1973,9 @@
         projectName: config.name,
         type,
         label: getRecordLabel(type, config),
-        group: project.currentGroup,
-        rep: project.currentRep,
+        group: state.currentProject === "ballShape" ? (project.selectedShapeIndex || 0) + 1 : project.currentGroup,
+        rep: state.currentProject === "ballShape" ? project.completed : project.currentRep,
+        shapeTitle: state.currentProject === "ballShape" ? getCurrentShape(project)?.title : "",
         time: new Date().toISOString()
       });
     }
@@ -1599,6 +1987,7 @@
     }
 
     function advancePosition(project) {
+      if (state.currentProject === "ballShape") return;
       const config = getConfig();
       project.currentRep += 1;
       if (project.currentRep > config.repsPerGroup) {
@@ -1634,6 +2023,32 @@
       render();
     }
 
+    function resetCurrentTimer() {
+      const project = getProject();
+      const seconds = getTimerSeconds();
+      if (project.finished || seconds <= 0) return;
+      startCurrentAttempt();
+    }
+
+    function endCurrentTraining() {
+      const project = getProject();
+      const hasActivity = project.completed > 0 || project.status !== "idle";
+      if (project.finished || !hasActivity) return;
+
+      stopTimer();
+      project.status = "idle";
+      project.remainingSeconds = getTimerSeconds();
+      if (project.completed > 0) {
+        saveHistorySummary("手动结束");
+      }
+      saveState();
+      render();
+      notifyTrainingEnd();
+      if (project.completed > 0) {
+        showSummary("本次训练结束");
+      }
+    }
+
     function clearAllData() {
       if (!confirm("确定清空全部课程与训练数据吗？此操作不可恢复。")) return;
       stopTimer();
@@ -1643,19 +2058,7 @@
       render();
     }
 
-    function changeFivePointRounds(delta) {
-      const project = state.projects.fivePoint;
-      if (project.completed > 0 && !confirm("修改总轮数会重置五分点训练当前进度，是否继续？")) return;
-      const next = clamp(project.totalGroups + delta, 1, 20);
-      state.projects.fivePoint = createProjectState("fivePoint");
-      state.projects.fivePoint.totalGroups = next;
-      state.projects.fivePoint.timerEnabled = project.timerEnabled;
-      state.projects.fivePoint.remainingSeconds = getTimerSeconds("fivePoint");
-      saveState();
-      render();
-    }
-
-    function saveHistorySummary() {
+    function saveHistorySummary(endType = "训练结束") {
       const project = getProject();
       const config = getConfig();
       const rate = calcRate(project);
@@ -1663,22 +2066,23 @@
         id: createRecordId(),
         date: todayKey,
         finishedAt: new Date().toISOString(),
+        endType,
         projectKey: state.currentProject,
         projectName: config.name,
+        shapeTitle: state.currentProject === "ballShape" ? getCurrentShape(project)?.title : "",
         total: project.completed,
         success: project.success,
         fail: project.fail,
         skipped: project.skipped,
         rate
       });
-      state.history = state.history.slice(0, 30);
     }
 
-    function showSummary() {
+    function showSummary(title = "训练完成") {
       const project = getProject();
       const config = getConfig();
       const rate = calcRate(project);
-      els.summaryTitle.textContent = `${config.name}完成`;
+      els.summaryTitle.textContent = `${title} ｜ ${config.name}`;
       els.summaryList.innerHTML = [
         ["总次数", project.completed],
         [config.successStatLabel, project.success],
@@ -1725,21 +2129,27 @@
       const config = getConfig();
       const project = getProject();
       const total = getTotal(project);
-      const completed = Math.min(project.completed, total);
-      const percent = total ? (completed / total) * 100 : 0;
+      const shape = getCurrentShape(project);
+      const completed = shape ? project.completed : Math.min(project.completed, total);
+      const percent = shape ? (((project.selectedShapeIndex || 0) + 1) / ballShapeItems.length) * 100 : total ? (completed / total) * 100 : 0;
       const rate = calcRate(project);
 
       els.trainingSelect.value = state.currentProject;
       els.projectName.textContent = config.name;
-      els.currentProgress.textContent = `第 ${Math.min(project.currentGroup, project.totalGroups)} ${config.unitA} / ${project.totalGroups} ｜ 第 ${Math.min(project.currentRep, config.repsPerGroup)} ${config.unitB} / ${config.repsPerGroup}`;
-      els.subProgress.textContent = `总完成 ${completed} / ${total}`;
+      els.currentProgress.textContent = shape
+        ? `${shape.title.replace("：", " ｜ ")}`
+        : `第 ${Math.min(project.currentGroup, project.totalGroups)} ${config.unitA} / ${project.totalGroups} ｜ 第 ${Math.min(project.currentRep, config.repsPerGroup)} ${config.unitB} / ${config.repsPerGroup}`;
+      els.subProgress.textContent = shape
+        ? `${shape.time} ｜ ${shape.target}`
+        : `总完成 ${completed} / ${total}`;
       els.statusText.textContent = getStatusText(project);
-      els.targetText.textContent = `${project.totalGroups}${config.unitA} × ${config.repsPerGroup}${config.unitB}`;
-      els.remainingText.textContent = `${Math.max(0, total - completed)}${config.unitB}`;
-      els.progressText.textContent = `${completed}/${total}`;
+      els.targetText.textContent = shape ? shape.time : `${project.totalGroups}${config.unitA} × ${config.repsPerGroup}${config.unitB}`;
+      els.remainingText.textContent = shape ? `第 ${(project.selectedShapeIndex || 0) + 1}/10` : `${Math.max(0, total - completed)}${config.unitB}`;
+      els.progressText.textContent = shape ? `已记录 ${project.completed} 次 ｜ 当前 ${(project.selectedShapeIndex || 0) + 1}/10` : `${completed}/${total}`;
       els.progressFill.style.width = `${Math.min(100, percent)}%`;
 
       renderTimer(project, config);
+      renderShapePanel(project);
       renderButtons(project, config);
       renderStats(project, config, completed, total, rate);
     }
@@ -1748,32 +2158,109 @@
       const notes = Array.isArray(state.courseNotes) ? state.courseNotes : [];
       const todayNotes = notes.filter((note) => note.date === todayKey);
       const latest = notes[0];
-      const practiceCount = notes.filter((note) => note.category === "课后练习" || note.category === "课后作业").length;
+      const imageCount = notes.reduce((sum, note) => sum + (Array.isArray(note.images) ? note.images.length : 0), 0);
       const progress = notes.length ? Math.min(100, notes.length * 10) : 0;
 
       els.projectName.textContent = "课程学习";
-      els.currentProgress.textContent = latest ? latest.title || "最近课程笔记" : "记录一节课程";
-      els.subProgress.textContent = latest ? `${formatNoteTime(latest.time)} ｜ ${latest.teacher || "自主学习"}` : "记录老师讲的方法、纠正点和课后练习";
-      els.statusText.textContent = "学习模块";
-      els.targetText.textContent = "理解方法";
+      els.currentProgress.textContent = latest ? "最近上传的课程图片" : "上传课程笔记图片";
+      els.subProgress.textContent = latest ? `${formatNoteTime(latest.time)} ｜ ${Array.isArray(latest.images) ? latest.images.length : 0} 张图` : "只保存图片，查看时可点开大图";
+      els.statusText.textContent = "图片库";
+      els.targetText.textContent = "随时回看";
       els.remainingText.textContent = `${todayNotes.length} 今日`;
       els.progressText.textContent = `${todayNotes.length} 今日 / ${notes.length} 总`;
       els.progressFill.style.width = `${progress}%`;
+      els.shapePanel.classList.add("hidden");
 
       els.timerBox.classList.remove("running", "done");
       els.timerBox.classList.add("text-mode");
       els.timerNumber.textContent = "课程";
-      els.timerLabel.textContent = "上课笔记、方法要点、课后练习";
+      els.timerLabel.textContent = "笔记图片";
 
       els.statCompleted.textContent = todayNotes.length;
       els.statRateLabel.textContent = "累计课程";
       els.statRate.textContent = notes.length;
-      els.statSuccessLabel.textContent = "课后练习";
-      els.statSuccess.textContent = practiceCount;
+      els.statSuccessLabel.textContent = "课程图片";
+      els.statSuccess.textContent = imageCount;
       els.statFailLabel.textContent = "最近";
       els.statFail.textContent = latest ? formatShortDate(latest.time) : "-";
       els.statFail.classList.remove("bad");
       els.statFail.classList.add("good");
+    }
+
+    function getCurrentShape(project = getProject()) {
+      if (state.currentProject !== "ballShape") return null;
+      const index = clamp(Number(project.selectedShapeIndex) || 0, 0, ballShapeItems.length - 1);
+      return ballShapeItems[index] || null;
+    }
+
+    function renderShapePanel(project) {
+      const shape = getCurrentShape(project);
+      if (!shape) {
+        els.shapePanel.classList.add("hidden");
+        return;
+      }
+
+      els.shapePanel.classList.remove("hidden");
+      els.shapeTitle.textContent = shape.title;
+      els.shapeTime.textContent = shape.time;
+      els.shapeGoal.textContent = shape.target;
+      els.shapeFocus.innerHTML = shape.focus.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+      els.shapeImageBtn.innerHTML = shape.image
+        ? `<img src="${shape.image}" alt="${escapeHtml(shape.title)}">`
+        : `<div class="shape-placeholder">图片待补充</div>`;
+    }
+
+    function openCurrentShapeImage() {
+      const shape = getCurrentShape();
+      if (shape && shape.image) {
+        openImageViewer(shape.image, shape.title);
+      }
+    }
+
+    function openShapeLibrary() {
+      ensureProject("ballShape");
+      renderShapeLibrary();
+      els.shapeLibraryModal.classList.add("show");
+    }
+
+    function renderShapeLibrary() {
+      ensureProject("ballShape");
+      const selectedIndex = clamp(Number(state.projects.ballShape.selectedShapeIndex) || 0, 0, ballShapeItems.length - 1);
+      els.shapeLibrary.innerHTML = ballShapeItems.map((shape, index) => `
+        <button class="shape-card-button ${index === selectedIndex ? "active" : ""}" type="button" data-shape-index="${index}">
+          ${shape.image
+            ? `<img src="${shape.image}" alt="${escapeHtml(shape.title)}">`
+            : `<div class="shape-card-placeholder">图片待补充</div>`}
+          <span class="shape-card-body">
+            <strong>${escapeHtml(shape.title)}</strong>
+            <span>${escapeHtml(shape.time)} ｜ ${escapeHtml(shape.target)}</span>
+          </span>
+        </button>
+      `).join("");
+
+      els.shapeLibrary.querySelectorAll("[data-shape-index]").forEach((button) => {
+        button.addEventListener("click", () => {
+          selectBallShape(Number(button.dataset.shapeIndex));
+        });
+      });
+    }
+
+    function selectBallShape(index) {
+      if (!Number.isFinite(index) || !ballShapeItems[index]) return;
+      stopTimer();
+      state.currentModule = "training";
+      state.currentProject = "ballShape";
+      ensureProject("ballShape");
+      const project = state.projects.ballShape;
+      project.selectedShapeIndex = index;
+      project.currentGroup = index + 1;
+      project.currentRep = 1;
+      project.status = "idle";
+      project.finished = false;
+      project.remainingSeconds = getTimerSeconds("ballShape");
+      els.shapeLibraryModal.classList.remove("show");
+      saveState();
+      render();
     }
 
     function renderTimer(project, config) {
@@ -1794,27 +2281,30 @@
         return;
       }
 
-      els.timerNumber.textContent = String(project.remainingSeconds ?? seconds);
+      els.timerNumber.textContent = formatTimerDisplay(project.remainingSeconds ?? seconds);
       if (project.status === "running") {
         els.timerLabel.textContent = "计时中";
       } else if (project.status === "done") {
         els.timerLabel.textContent = config.doneText;
       } else {
-        els.timerLabel.textContent = `${seconds} 秒倒计时`;
+        els.timerLabel.textContent = seconds >= 60 ? `${Math.round(seconds / 60)} 分钟倒计时` : `${seconds} 秒倒计时`;
       }
     }
 
     function renderButtons(project, config) {
       const hasTimer = getTimerSeconds() > 0;
       const canRecord = !project.finished && project.status !== "running" && (!hasTimer || project.status === "done" || project.status === "ready");
+      const hasActivity = project.completed > 0 || project.status !== "idle";
       els.startBtn.disabled = project.finished || project.status === "running";
       els.startBtn.textContent = project.status === "running" ? "计时中" : project.status === "done" ? "重新计时" : hasTimer ? "开始本次" : "进入待记录";
       els.successBtn.textContent = config.successLabel;
       els.failBtn.textContent = config.failLabel;
       els.successBtn.disabled = !canRecord;
       els.failBtn.disabled = !canRecord;
-      els.skipBtn.disabled = project.finished || project.status === "running";
-      els.undoBtn.disabled = project.undoStack.length === 0;
+      els.undoBtn.textContent = "结束训练";
+      els.undoBtn.disabled = project.finished || !hasActivity;
+      els.resetBtn.textContent = "重置时间";
+      els.resetBtn.disabled = project.finished || !hasTimer;
     }
 
     function getStatusText(project) {
@@ -1838,14 +2328,11 @@
     }
 
     function renderSettings() {
-      const fivePoint = state.projects.fivePoint;
-      els.roundValue.textContent = fivePoint.totalGroups;
-      els.fivePointTimerToggle.checked = Boolean(fivePoint.timerEnabled);
       els.wakeLockToggle.checked = Boolean(state.preferences.keepAwake);
       const current = getConfig();
       els.settingsInfo.textContent = state.currentModule === "course"
-        ? "课程学习模块用于记录老师讲的方法、纠正点、课后作业和后续训练验证。训练模块用于计时和统计完成率。"
-        : `当前项目：${current.name}。姿势入位训练固定为 7 组 × 7 次，每次 30 秒；五分点训练可在这里调整总轮数和可选计时。`;
+        ? "课程学习只保存课程笔记图片，查看时可以直接点开大图。"
+        : `当前项目：${current.name}。入位训练每次 30 秒；入门球形训练每个球形 10 分钟。`;
     }
 
     function openSettings() {
@@ -1857,47 +2344,45 @@
       renderTodayHistory();
       renderHistorySummary();
       renderNoteHistory();
+      els.historyTitle.textContent = "学习与训练记录";
+      els.noteHistoryCard.classList.remove("hidden");
+      els.historySummaryCard.classList.remove("hidden");
+      els.todayHistoryCard.classList.remove("hidden");
       els.historyModal.classList.add("show");
     }
 
-    function openNote(category = "课程笔记") {
+    function openCourseLibrary() {
+      renderNoteHistory();
+      els.historyTitle.textContent = "课程图片";
+      els.noteHistoryCard.classList.remove("hidden");
+      els.historySummaryCard.classList.add("hidden");
+      els.todayHistoryCard.classList.add("hidden");
+      els.historyModal.classList.add("show");
+    }
+
+    function openNote(category = "课程图片") {
       els.noteContext.textContent = `${formatDate(new Date())} ｜ ${category}`;
-      els.lessonTitleInput.value = category === "课程笔记" ? "" : category;
-      els.lessonTeacherInput.value = "";
-      els.noteText.value = "";
       els.noteImageInput.value = "";
       pendingNoteImages = [];
       renderNoteImagePreview();
       els.noteModal.dataset.category = category;
       els.noteModal.classList.add("show");
-      setTimeout(() => els.lessonTitleInput.focus(), 80);
-    }
-
-    function appendNoteText(text) {
-      const current = els.noteText.value.trim();
-      els.noteText.value = current ? `${current}\n${text}` : text;
-      els.noteText.focus();
     }
 
     function saveNote() {
-      const text = els.noteText.value.trim();
-      const title = els.lessonTitleInput.value.trim();
-      const teacher = els.lessonTeacherInput.value.trim();
-      const category = els.noteModal.dataset.category || "课程笔记";
-      if (!text && !title && !pendingNoteImages.length) return;
+      const category = els.noteModal.dataset.category || "课程图片";
+      if (!pendingNoteImages.length) return;
 
       state.courseNotes.unshift({
         id: createRecordId(),
         date: todayKey,
         time: new Date().toISOString(),
         category,
-        title: title || category,
-        teacher,
-        text,
+        title: `${formatShortDate(new Date().toISOString())} 课程图片`,
+        text: "",
         images: pendingNoteImages,
         linkedTrainingProject: state.currentProject
       });
-      state.courseNotes = state.courseNotes.slice(0, 200);
       saveState();
       render();
       renderNoteHistory();
@@ -1906,7 +2391,7 @@
 
     async function handleNoteImages(event) {
       const files = Array.from(event.target.files || []);
-      const slots = Math.max(0, 4 - pendingNoteImages.length);
+      const slots = Math.max(0, 12 - pendingNoteImages.length);
       const selected = files.slice(0, slots);
       for (const file of selected) {
         if (!file.type.startsWith("image/")) continue;
@@ -1928,14 +2413,27 @@
       }
 
       els.noteImagePreview.innerHTML = pendingNoteImages.map((image, index) => `
-        <div class="note-image-thumb">
+        <div class="note-image-thumb image-thumb-button" data-preview-index="${index}" role="button" tabindex="0">
           <img src="${image.dataUrl}" alt="笔记图片 ${index + 1}">
           <button class="remove-image" data-index="${index}" aria-label="删除图片">×</button>
         </div>
       `).join("");
 
+      els.noteImagePreview.querySelectorAll("[data-preview-index]").forEach((thumb) => {
+        thumb.addEventListener("click", () => {
+          const image = pendingNoteImages[Number(thumb.dataset.previewIndex)];
+          if (image) openImageViewer(image.dataUrl, image.name || "课程图片");
+        });
+        thumb.addEventListener("keydown", (event) => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          thumb.click();
+        });
+      });
+
       els.noteImagePreview.querySelectorAll(".remove-image").forEach((button) => {
-        button.addEventListener("click", () => {
+        button.addEventListener("click", (event) => {
+          event.stopPropagation();
           pendingNoteImages.splice(Number(button.dataset.index), 1);
           renderNoteImagePreview();
         });
@@ -1974,15 +2472,16 @@
       });
     }
 
-    function renderTodayHistory() {
-      const records = (state.todayRecords[todayKey] || []).slice().reverse().slice(0, 20);
+    function renderTodayHistory(dateKey = todayKey) {
+      const records = (state.todayRecords[dateKey] || []).slice().reverse();
+      els.todayHistoryTitle.textContent = dateKey === todayKey ? "今日明细" : `${dateKey} 明细`;
       if (!records.length) {
-        els.todayHistory.innerHTML = `<div class="empty">今天还没有记录。</div>`;
+        els.todayHistory.innerHTML = `<div class="empty">${dateKey === todayKey ? "今天" : dateKey}还没有记录。</div>`;
         return;
       }
 
       els.todayHistory.innerHTML = records.map((record) => {
-        const config = trainingConfigs[record.projectKey];
+        const config = trainingConfigs[record.projectKey] || { unitA: "组", unitB: "次" };
         const time = new Date(record.time).toLocaleTimeString("zh-CN", {
           hour: "2-digit",
           minute: "2-digit"
@@ -1990,32 +2489,96 @@
         return `
           <div class="history-item">
             <strong>${record.projectName}：${record.label}</strong>
-            <span>${time} ｜ 第 ${record.group} ${config.unitA} ｜ 第 ${record.rep} ${config.unitB}</span>
+            <span>${time} ｜ ${record.shapeTitle ? `${escapeHtml(record.shapeTitle)} ｜ ` : ""}第 ${record.group} ${config.unitA} ｜ 第 ${record.rep} ${config.unitB}</span>
+            ${record.editedAt ? `<span>已编辑：${escapeHtml(formatNoteTime(record.editedAt))}</span>` : ""}
+            <div class="history-tools">
+              <button class="history-edit" type="button" data-edit-record="${escapeHtml(record.id)}" data-edit-date="${escapeHtml(dateKey)}">编辑</button>
+            </div>
           </div>
         `;
       }).join("");
+
+      els.todayHistory.querySelectorAll("[data-edit-record]").forEach((button) => {
+        button.addEventListener("click", () => editTrainingRecord(button.dataset.editDate, button.dataset.editRecord));
+      });
+    }
+
+    function editTrainingRecord(dateKey, recordId) {
+      const records = state.todayRecords[dateKey] || [];
+      const record = records.find((item) => item.id === recordId);
+      if (!record) return;
+
+      const config = trainingConfigs[record.projectKey] || {
+        name: record.projectName || "训练记录",
+        successLabel: "达标",
+        failLabel: "未达标"
+      };
+      const currentChoice = record.type === "fail" ? "2" : "1";
+      const input = prompt(
+        `修改「${record.projectName}」结果：\n1 = ${config.successLabel}\n2 = ${config.failLabel}`,
+        currentChoice
+      );
+      if (input === null) return;
+
+      const value = input.trim();
+      let nextType = "";
+      if (value === "1" || value === config.successLabel || value === "成功" || value === "稳定" || value === "达标") {
+        nextType = "success";
+      }
+      if (value === "2" || value === config.failLabel || value === "失败" || value === "不稳" || value === "未达标") {
+        nextType = "fail";
+      }
+      if (!nextType) {
+        alert("只能输入 1 或 2。");
+        return;
+      }
+      if (nextType === record.type) return;
+
+      const oldType = record.type;
+      record.type = nextType;
+      record.label = getRecordLabel(nextType, config);
+      record.editedAt = new Date().toISOString();
+
+      const project = state.projects[record.projectKey];
+      const stackItem = project?.undoStack?.find((item) => item.recordId === recordId);
+      if (stackItem) {
+        adjustProjectCount(project, oldType, -1);
+        adjustProjectCount(project, nextType, 1);
+        stackItem.type = nextType;
+      }
+
+      saveState();
+      render();
+      renderTodayHistory(dateKey);
+      renderHistorySummary();
+    }
+
+    function adjustProjectCount(project, type, amount) {
+      if (type === "success") project.success = Math.max(0, project.success + amount);
+      if (type === "fail") project.fail = Math.max(0, project.fail + amount);
+      if (type === "skip") project.skipped = Math.max(0, project.skipped + amount);
     }
 
     function renderHistorySummary() {
       const summaries = Array.isArray(state.history) ? state.history : [];
       const dailyRecords = Object.entries(state.todayRecords || {})
-        .sort(([a], [b]) => b.localeCompare(a))
-        .slice(0, 14);
+        .sort(([a], [b]) => b.localeCompare(a));
 
       if (!summaries.length && !dailyRecords.length) {
         els.historySummary.innerHTML = `<div class="empty">还没有历史训练记录。</div>`;
         return;
       }
 
-      const summaryHtml = summaries.slice(0, 20).map((item) => {
+      const summaryHtml = summaries.map((item) => {
         const finished = item.finishedAt ? new Date(item.finishedAt).toLocaleTimeString("zh-CN", {
           hour: "2-digit",
           minute: "2-digit"
         }) : "";
+        const shapeText = item.shapeTitle ? ` ｜ ${escapeHtml(item.shapeTitle)}` : "";
         return `
           <div class="history-item">
             <strong>${item.date} ${item.projectName}</strong>
-            <span>${finished} ｜ 总 ${item.total} ｜ 成功/稳定 ${item.success} ｜ 失败/不稳 ${item.fail} ｜ ${item.rate}%</span>
+            <span>${finished} ｜ ${escapeHtml(item.endType || "训练结束")}${shapeText} ｜ 总 ${item.total} ｜ 达标 ${item.success} ｜ 未达标 ${item.fail} ｜ ${item.rate}%</span>
           </div>
         `;
       }).join("");
@@ -2023,58 +2586,66 @@
       const dailyHtml = dailyRecords.map(([date, records]) => {
         const success = records.filter((record) => record.type === "success").length;
         const fail = records.filter((record) => record.type === "fail").length;
-        const skip = records.filter((record) => record.type === "skip").length;
         return `
           <div class="history-item">
             <strong>${date} 每日记录</strong>
-            <span>总 ${records.length} ｜ 成功/稳定 ${success} ｜ 失败/不稳 ${fail} ｜ 跳过 ${skip}</span>
+            <span>总 ${records.length} ｜ 达标 ${success} ｜ 未达标 ${fail}</span>
+            <div class="history-tools">
+              <button class="history-edit" type="button" data-open-date="${escapeHtml(date)}">查看/编辑</button>
+            </div>
           </div>
         `;
       }).join("");
 
       els.historySummary.innerHTML = `${summaryHtml}${dailyHtml}`;
+      els.historySummary.querySelectorAll("[data-open-date]").forEach((button) => {
+        button.addEventListener("click", () => renderTodayHistory(button.dataset.openDate));
+      });
     }
 
     function renderNoteHistory() {
-      const notes = Array.isArray(state.courseNotes) ? state.courseNotes.slice(0, 50) : [];
-      if (!notes.length) {
-        els.noteHistory.innerHTML = `<div class="empty">还没有课程笔记。</div>`;
+      const notes = Array.isArray(state.courseNotes) ? state.courseNotes : [];
+      const images = [];
+      notes.forEach((note, noteIndex) => {
+        (Array.isArray(note.images) ? note.images : []).forEach((image, imageIndex) => {
+          images.push({ note, noteIndex, image, imageIndex });
+        });
+      });
+
+      if (!images.length) {
+        els.noteHistory.innerHTML = `<div class="empty">还没有课程图片。</div>`;
         return;
       }
 
-      els.noteHistory.innerHTML = notes.map((note) => {
-        const time = new Date(note.time).toLocaleString("zh-CN", {
-          month: "2-digit",
-          day: "2-digit",
-          hour: "2-digit",
-          minute: "2-digit"
+      els.noteHistory.innerHTML = `
+        <div class="history-images">
+          ${images.map((item, index) => `
+            <button class="note-image-thumb image-thumb-button" data-image-flat-index="${index}" type="button" aria-label="打开课程图片 ${index + 1}">
+              <img src="${item.image.dataUrl}" alt="课程图片 ${index + 1}">
+            </button>
+          `).join("")}
+        </div>
+      `;
+
+      els.noteHistory.querySelectorAll("[data-image-flat-index]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const item = images[Number(button.dataset.imageFlatIndex)];
+          if (item && item.image) openImageViewer(item.image.dataUrl, item.image.name || "课程图片");
         });
-        const images = Array.isArray(note.images) ? note.images : [];
-        const imageHtml = images.length ? `
-          <div class="history-images">
-            ${images.map((image, index) => `
-              <div class="note-image-thumb">
-                <img src="${image.dataUrl}" alt="课程图片 ${index + 1}">
-              </div>
-            `).join("")}
-          </div>
-        ` : "";
-        return `
-          <div class="history-item">
-            <strong>${escapeHtml(time)} ${escapeHtml(note.title || "课程笔记")}</strong>
-            <span>${escapeHtml(note.category || "课程笔记")}${note.teacher ? ` ｜ ${escapeHtml(note.teacher)}` : ""}</span>
-            <span>${escapeHtml(note.text || "").replace(/\n/g, "<br>")}</span>
-            ${imageHtml}
-          </div>
-        `;
-      }).join("");
+      });
+    }
+
+    function openImageViewer(src, title = "课程图片") {
+      els.imageViewerTitle.textContent = title;
+      els.imageViewerImg.src = src;
+      els.imageModal.classList.add("show");
     }
 
     function exportData() {
       const payload = {
         exportedAt: new Date().toISOString(),
         app: "台球学习与训练",
-        version: 3,
+        version: 4,
         state
       };
       const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
@@ -2132,6 +2703,59 @@
       }
     }
 
+    function unlockAudio() {
+      try {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        if (!audioContext || audioContext.state === "closed") {
+          audioContext = new AudioContextClass();
+        }
+        if (audioContext.state === "suspended") {
+          audioContext.resume().catch(() => {});
+        }
+      } catch (error) {
+        audioContext = null;
+      }
+    }
+
+    function notifyTrainingEnd() {
+      vibrate();
+      playFinishSound();
+    }
+
+    function playFinishSound() {
+      unlockAudio();
+      if (!audioContext) return;
+
+      const play = () => {
+        try {
+          const now = audioContext.currentTime;
+          const gain = audioContext.createGain();
+          gain.gain.setValueAtTime(0.0001, now);
+          gain.gain.exponentialRampToValueAtTime(0.2, now + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.34);
+          gain.connect(audioContext.destination);
+
+          [880, 1175].forEach((frequency, index) => {
+            const oscillator = audioContext.createOscillator();
+            oscillator.type = "sine";
+            oscillator.frequency.setValueAtTime(frequency, now + index * 0.15);
+            oscillator.connect(gain);
+            oscillator.start(now + index * 0.15);
+            oscillator.stop(now + index * 0.15 + 0.16);
+          });
+        } catch (error) {
+          audioContext = null;
+        }
+      };
+
+      if (audioContext.state === "suspended") {
+        audioContext.resume().then(play).catch(() => {});
+        return;
+      }
+      play();
+    }
+
     function stopTimer() {
       if (timerId) {
         clearInterval(timerId);
@@ -2171,6 +2795,14 @@
       });
     }
 
+    function formatTimerDisplay(seconds) {
+      const value = Math.max(0, Number(seconds) || 0);
+      if (value < 60) return String(value);
+      const minutes = Math.floor(value / 60);
+      const rest = String(value % 60).padStart(2, "0");
+      return `${minutes}:${rest}`;
+    }
+
     function createRecordId() {
       return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
     }
@@ -2181,6 +2813,16 @@
 
     if ("serviceWorker" in navigator && location.protocol !== "file:") {
       window.addEventListener("load", () => {
+        const isLocalDebug = ["127.0.0.1", "localhost", "::1"].includes(location.hostname);
+        if (isLocalDebug) {
+          navigator.serviceWorker.getRegistrations()
+            .then((registrations) => Promise.all(registrations.map((registration) => registration.unregister())))
+            .then(() => caches.keys())
+            .then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
+            .catch(() => {});
+          return;
+        }
+
         navigator.serviceWorker.register("./sw.js").catch(() => {});
       });
     }
